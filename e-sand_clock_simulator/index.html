@@ -1,0 +1,413 @@
+<!-----------------------------
+
+Digital sand clock simulator
+
+Arsenii's Technologies
+
+------------------------------>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Digi sand clock simulator</title>
+
+  <meta name="author" content="Arsenii Tymoshenko">
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/e-sand_clock/style.css">
+  <script src="/e-sand_clock/main.js"></script>
+</head>
+
+<body onload="clear_all()"">
+  <div id="square">&nbsp;</div>
+  <table id="table_id">
+    <tr>
+      <th style="border-color:red; border-bottom:#000;">&nbsp;</th>
+      <th style="border-color:red; border-bottom:#000;">01</th>
+      <th style="border-color:red; border-bottom:#000;">02</th>
+      <th style="border-color:red; border-bottom:#000;">03</th>
+      <th style="border-color:red; border-bottom:#000;">04</th>
+      <th style="border-color:red; border-bottom:#000;">05</th>
+      <th style="border-color:red; border-bottom:#000;">06</th>
+      <th style="border-color:red; border-bottom:#000;">07</th>
+      <th style="border-color:red; border-bottom:#000;">08</th>
+      <th style="border-color:red; border-bottom:#000;">09</th>
+      <th style="border-color:red; border-bottom:#000;">10</th>
+      <th style="border-color:red; border-bottom:#000;">11</th>
+      <th style="border-color:red; border-bottom:#000;">12</th>
+      <th style="border-color:red; border-bottom:#000;">13</th>
+      <th style="border-color:red; border-bottom:#000;">14</th>
+      <th style="border-color:red; border-bottom:#000;">15</th>
+      <th style="border-color:red; border-bottom:#000;">16</th>
+    </tr>
+    <tr>
+      <th style="border-color:red; border-right:#000;">1</th>
+      <th id="1;1">&nbsp;</th>
+      <th id="2;1">&nbsp;</th>
+      <th id="3;1">&nbsp;</th>
+      <th id="4;1">&nbsp;</th>
+      <th id="5;1">&nbsp;</th>
+      <th id="6;1">&nbsp;</th> 
+      <th id="7;1">&nbsp;</th>
+      <th id="8;1">&nbsp;</th>
+      <th id="9;1">&nbsp;</th>
+      <th id="10;1">&nbsp;</th>
+      <th id="11;1">&nbsp;</th>
+      <th id="12;1">&nbsp;</th>
+      <th id="13;1">&nbsp;</th>
+      <th id="14;1">&nbsp;</th>
+      <th id="15;1">&nbsp;</th>
+      <th id="16;1">&nbsp;</th>
+    </tr>
+    <tr>  
+      <th style="border-color:red; border-right:#000;">2</th>
+
+      <th id="1;2">&nbsp;</th>
+      <th id="2;2">&nbsp;</th>
+      <th id="3;2">&nbsp;</th>
+      <th id="4;2">&nbsp;</th>
+      <th id="5;2">&nbsp;</th>
+      <th id="6;2">&nbsp;</th>
+      <th id="7;2">&nbsp;</th>
+      <th id="8;2">&nbsp;</th>
+      <th id="9;2">&nbsp;</th>
+      <th id="10;2">&nbsp;</th>
+      <th id="11;2">&nbsp;</th>
+      <th id="12;2">&nbsp;</th>
+      <th id="13;2">&nbsp;</th>
+      <th id="14;2">&nbsp;</th>
+      <th id="15;2">&nbsp;</th>
+      <th id="16;2">&nbsp;</th>
+    </tr>
+    <tr>  
+      <th style="border-color:red; border-right:#000;">3</th>
+
+      <th id="1;3">&nbsp;</th>
+      <th id="2;3">&nbsp;</th>
+      <th id="3;3">&nbsp;</th>
+      <th id="4;3">&nbsp;</th>
+      <th id="5;3">&nbsp;</th>
+      <th id="6;3">&nbsp;</th>
+      <th id="7;3">&nbsp;</th>
+      <th id="8;3">&nbsp;</th>
+      <th id="9;3">&nbsp;</th>
+      <th id="10;3">&nbsp;</th>
+      <th id="11;3">&nbsp;</th>
+      <th id="12;3">&nbsp;</th>
+      <th id="13;3">&nbsp;</th>
+      <th id="14;3">&nbsp;</th>
+      <th id="15;3">&nbsp;</th>
+      <th id="16;3">&nbsp;</th>
+    </tr> 
+    <tr>  
+      <th style="border-color:red; border-right:#000;">4</th>
+
+      <th id="1;4">&nbsp;</th>
+      <th id="2;4">&nbsp;</th>
+      <th id="3;4">&nbsp;</th>
+      <th id="4;4">&nbsp;</th>
+      <th id="5;4">&nbsp;</th>
+      <th id="6;4">&nbsp;</th>
+      <th id="7;4">&nbsp;</th>
+      <th id="8;4">&nbsp;</th>
+      <th id="9;4">&nbsp;</th>
+      <th id="10;4">&nbsp;</th>
+      <th id="11;4">&nbsp;</th>
+      <th id="12;4">&nbsp;</th>
+      <th id="13;4">&nbsp;</th>
+      <th id="14;4">&nbsp;</th>
+      <th id="15;4">&nbsp;</th>
+      <th id="16;4">&nbsp;</th>
+    </tr> 
+    <tr>  
+      <th style="border-color:red; border-right:#000;">5</th>
+
+      <th id="1;5">&nbsp;</th>
+      <th id="2;5">&nbsp;</th>
+      <th id="3;5">&nbsp;</th>
+      <th id="4;5">&nbsp;</th>
+      <th id="5;5">&nbsp;</th>
+      <th id="6;5">&nbsp;</th>
+      <th id="7;5">&nbsp;</th>
+      <th id="8;5">&nbsp;</th>
+      <th id="9;5">&nbsp;</th>
+      <th id="10;5">&nbsp;</th>
+      <th id="11;5">&nbsp;</th>
+      <th id="12;5">&nbsp;</th>
+      <th id="13;5">&nbsp;</th>
+      <th id="14;5">&nbsp;</th>
+      <th id="15;5">&nbsp;</th>
+      <th id="16;5">&nbsp;</th>
+    </tr>
+    <tr>  
+      <th style="border-color:red; border-right:#000;">6</th>
+
+      <th id="1;6">&nbsp;</th>
+      <th id="2;6">&nbsp;</th>
+      <th id="3;6">&nbsp;</th>
+      <th id="4;6">&nbsp;</th>
+      <th id="5;6">&nbsp;</th>
+      <th id="6;6">&nbsp;</th>
+      <th id="7;6">&nbsp;</th>
+      <th id="8;6">&nbsp;</th>
+      <th id="9;6">&nbsp;</th>
+      <th id="10;6">&nbsp;</th>
+      <th id="11;6">&nbsp;</th>
+      <th id="12;6">&nbsp;</th>
+      <th id="13;6">&nbsp;</th>
+      <th id="14;6">&nbsp;</th>
+      <th id="15;6">&nbsp;</th>
+      <th id="16;6">&nbsp;</th>
+    </tr> 
+    <tr>  
+      <th style="border-color:red; border-right:#000;">7</th>
+
+      <th id="1;7">&nbsp;</th>
+      <th id="2;7">&nbsp;</th>
+      <th id="3;7">&nbsp;</th>
+      <th id="4;7">&nbsp;</th>
+      <th id="5;7">&nbsp;</th>
+      <th id="6;7">&nbsp;</th>
+      <th id="7;7">&nbsp;</th>
+      <th id="8;7">&nbsp;</th>
+      <th id="9;7">&nbsp;</th>
+      <th id="10;7">&nbsp;</th>
+      <th id="11;7">&nbsp;</th>
+      <th id="12;7">&nbsp;</th>
+      <th id="13;7">&nbsp;</th>
+      <th id="14;7">&nbsp;</th>
+      <th id="15;7">&nbsp;</th>
+      <th id="16;7">&nbsp;</th>
+    </tr> 
+    <tr>  
+      <th style="border-color:red; border-right:#000;">8</th>
+
+      <th id="1;8">&nbsp;</th>
+      <th id="2;8">&nbsp;</th>
+      <th id="3;8">&nbsp;</th>
+      <th id="4;8">&nbsp;</th>
+      <th id="5;8">&nbsp;</th>
+      <th id="6;8">&nbsp;</th>
+      <th id="7;8">&nbsp;</th>
+      <th id="8;8">&nbsp;</th>
+      <th id="9;8">&nbsp;</th>
+      <th id="10;8">&nbsp;</th>
+      <th id="11;8">&nbsp;</th>
+      <th id="12;8">&nbsp;</th>
+      <th id="13;8">&nbsp;</th>
+      <th id="14;8">&nbsp;</th>
+      <th id="15;8">&nbsp;</th>
+      <th id="16;8">&nbsp;</th>
+    </tr>
+    <tr>
+      <th style="border-color:red; border-right:#000;">9</th>
+      <th id="1;9">&nbsp;</th>
+      <th id="2;9">&nbsp;</th>
+      <th id="3;9">&nbsp;</th>
+      <th id="4;9">&nbsp;</th>
+      <th id="5;9">&nbsp;</th>
+      <th id="6;9">&nbsp;</th> 
+      <th id="7;9">&nbsp;</th>
+      <th id="8;9">&nbsp;</th>
+      <th id="9;9">&nbsp;</th>
+      <th id="10;9">&nbsp;</th>
+      <th id="11;9">&nbsp;</th>
+      <th id="12;9">&nbsp;</th>
+      <th id="13;9">&nbsp;</th>
+      <th id="14;9">&nbsp;</th>
+      <th id="15;9">&nbsp;</th>
+      <th id="16;9">&nbsp;</th>
+    </tr>
+    <tr>  
+      <th style="border-color:red; border-right:#000;">10</th>
+
+      <th id="1;10">&nbsp;</th>
+      <th id="2;10">&nbsp;</th>
+      <th id="3;10">&nbsp;</th>
+      <th id="4;10">&nbsp;</th>
+      <th id="5;10">&nbsp;</th>
+      <th id="6;10">&nbsp;</th>
+      <th id="7;10">&nbsp;</th>
+      <th id="8;10">&nbsp;</th>
+      <th id="9;10">&nbsp;</th>
+      <th id="10;10">&nbsp;</th>
+      <th id="11;10">&nbsp;</th>
+      <th id="12;10">&nbsp;</th>
+      <th id="13;10">&nbsp;</th>
+      <th id="14;10">&nbsp;</th>
+      <th id="15;10">&nbsp;</th>
+      <th id="16;10">&nbsp;</th>
+    </tr>
+    <tr>  
+      <th style="border-color:red; border-right:#000;">11</th>
+
+      <th id="1;11">&nbsp;</th>
+      <th id="2;11">&nbsp;</th>
+      <th id="3;11">&nbsp;</th>
+      <th id="4;11">&nbsp;</th>
+      <th id="5;11">&nbsp;</th>
+      <th id="6;11">&nbsp;</th>
+      <th id="7;11">&nbsp;</th>
+      <th id="8;11">&nbsp;</th>
+      <th id="9;11">&nbsp;</th>
+      <th id="10;11">&nbsp;</th>
+      <th id="11;11">&nbsp;</th>
+      <th id="12;11">&nbsp;</th>
+      <th id="13;11">&nbsp;</th>
+      <th id="14;11">&nbsp;</th>
+      <th id="15;11">&nbsp;</th>
+      <th id="16;11">&nbsp;</th>
+    </tr> 
+    <tr>  
+      <th style="border-color:red; border-right:#000;">12</th>
+
+      <th id="1;12">&nbsp;</th>
+      <th id="2;12">&nbsp;</th>
+      <th id="3;12">&nbsp;</th>
+      <th id="4;12">&nbsp;</th>
+      <th id="5;12">&nbsp;</th>
+      <th id="6;12">&nbsp;</th>
+      <th id="7;12">&nbsp;</th>
+      <th id="8;12">&nbsp;</th>
+      <th id="9;12">&nbsp;</th>
+      <th id="10;12">&nbsp;</th>
+      <th id="11;12">&nbsp;</th>
+      <th id="12;12">&nbsp;</th>
+      <th id="13;12">&nbsp;</th>
+      <th id="14;12">&nbsp;</th>
+      <th id="15;12">&nbsp;</th>
+      <th id="16;12">&nbsp;</th>
+    </tr> 
+    <tr>  
+      <th style="border-color:red; border-right:#000;">13</th>
+
+      <th id="1;13">&nbsp;</th>
+      <th id="2;13">&nbsp;</th>
+      <th id="3;13">&nbsp;</th>
+      <th id="4;13">&nbsp;</th>
+      <th id="5;13">&nbsp;</th>
+      <th id="6;13">&nbsp;</th>
+      <th id="7;13">&nbsp;</th>
+      <th id="8;13">&nbsp;</th>
+      <th id="9;13">&nbsp;</th>
+      <th id="10;13">&nbsp;</th>
+      <th id="11;13">&nbsp;</th>
+      <th id="12;13">&nbsp;</th>
+      <th id="13;13">&nbsp;</th>
+      <th id="14;13">&nbsp;</th>
+      <th id="15;13">&nbsp;</th>
+      <th id="16;13">&nbsp;</th>
+    </tr>
+    <tr>  
+      <th style="border-color:red; border-right:#000;">14</th>
+
+      <th id="1;14">&nbsp;</th>
+      <th id="2;14">&nbsp;</th>
+      <th id="3;14">&nbsp;</th>
+      <th id="4;14">&nbsp;</th>
+      <th id="5;14">&nbsp;</th>
+      <th id="6;14">&nbsp;</th>
+      <th id="7;14">&nbsp;</th>
+      <th id="8;14">&nbsp;</th>
+      <th id="9;14">&nbsp;</th>
+      <th id="10;14">&nbsp;</th>
+      <th id="11;14">&nbsp;</th>
+      <th id="12;14">&nbsp;</th>
+      <th id="13;14">&nbsp;</th>
+      <th id="14;14">&nbsp;</th>
+      <th id="15;14">&nbsp;</th>
+      <th id="16;14">&nbsp;</th>
+    </tr> 
+    <tr>  
+      <th style="border-color:red; border-right:#000;">15</th>
+
+      <th id="1;15">&nbsp;</th>
+      <th id="2;15">&nbsp;</th>
+      <th id="3;15">&nbsp;</th>
+      <th id="4;15">&nbsp;</th>
+      <th id="5;15">&nbsp;</th>
+      <th id="6;15">&nbsp;</th>
+      <th id="7;15">&nbsp;</th>
+      <th id="8;15">&nbsp;</th>
+      <th id="9;15">&nbsp;</th>
+      <th id="10;15">&nbsp;</th>
+      <th id="11;15">&nbsp;</th>
+      <th id="12;15">&nbsp;</th>
+      <th id="13;15">&nbsp;</th>
+      <th id="14;15">&nbsp;</th>
+      <th id="15;15">&nbsp;</th>
+      <th id="16;15">&nbsp;</th>
+    </tr> 
+    <tr>  
+      <th style="border-color:red; border-right:#000;">16</th>
+
+      <th id="1;16">&nbsp;</th>
+      <th id="2;16">&nbsp;</th>
+      <th id="3;16">&nbsp;</th>
+      <th id="4;16">&nbsp;</th>
+      <th id="5;16">&nbsp;</th>
+      <th id="6;16">&nbsp;</th>
+      <th id="7;16">&nbsp;</th>
+      <th id="8;16">&nbsp;</th>
+      <th id="9;16">&nbsp;</th>
+      <th id="10;16">&nbsp;</th>
+      <th id="11;16">&nbsp;</th>
+      <th id="12;16">&nbsp;</th>
+      <th id="13;16">&nbsp;</th>
+      <th id="14;16">&nbsp;</th>
+      <th id="15;16">&nbsp;</th>
+      <th id="16;16">&nbsp;</th>
+    </tr>
+  </table>
+
+  <p id="pos" style="font-size: 50px; display:none; text-align: center;">-;-</p>
+
+  <br>
+  <input type="range" style="width: 400px; margin-top: 60px; margin-left:5px;" id="inp" min="0" step="5" max="90" value="45" onchange="change_angle()">
+  <p id="angle_print" style="font-size: 20px; display: inline-block; margin-left: 5px;">45deg</p>
+  <br>
+  <label style="display:inline-block;">Lightup</label>
+  <input type="text" style="width:400px; display:block;" name="lightup" id="lightup_text">
+  <button style="margin-top:5px;" onclick="lightup_text_processing()">Send!</button>
+  <label style="display:block; margin-top:10px;">Turn off</label>
+  <input type="text" style="width:400px; display:block;" name="turn off" id="turn_off_text">
+  <button style="margin-top:5px;" onclick="turn_off_text_processing()">Send!</button>
+  <!--<p id="angle_print45" style="font-size: 20px; display: inline-block; margin-left: 5px;">45deg</p>-->
+  <br>
+  <br>
+  <div style="margin-left:5px;">
+    <label>
+      <span>Auto add</span>
+      <input type="checkbox" id="add_ch">
+    </label>
+    <label>
+      <span style="margin-left:5px;">Auto remove</span>
+      <input type="checkbox" id="remove_ch">
+    </label>
+  </div>
+  <br>
+  <br>
+  <div style="border: 1px solid #000; width:auto; margin-left:5px; padding: 5px; padding-top:0px; margin-top:9px; display:inline-block;">
+    <p style="font-size: 18px;">Lightup Multiple</p>
+    <button onclick="lightup_random_pixel_no_clear()">lightup random</button>
+    <button onclick="lightup_specific_pixel_no_clear()">lightup specific</button>
+    <br>
+  </div>
+  <div style="border: 1px solid #000; width:auto; margin-left:5px; padding: 5px; padding-top:0px; margin-top:9px; display:inline-block; background-color:#b3e8ff;">
+    <p style="font-size: 18px;">Clear</p>
+    <button onclick="clear_all()">clear all</button>
+    <button onclick="remove_specific()">remove scecific</button>
+  </div>
+  <div style="border: 1px solid #000; width:auto; margin-left:5px; padding: 5px; padding-top:0px; margin-top:9px; display:none; background-color:#ffb3b3;">
+    <p style="font-size: 18px;">Lightup One</p>
+    <button onclick="lightup_random_pixel_clear()">lightup random</button>
+    <button onclick="lightup_specific_pixel_clear()">lightup specific</button>
+  </div>
+  <p id="save_angle" style="display:none;">0</p>
+</body>
+<script>
+  
+</script>
+</html>
