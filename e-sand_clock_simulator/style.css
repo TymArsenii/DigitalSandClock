@@ -1,0 +1,32 @@
+body
+{
+  font-family: arial, sans-serif;
+}
+#square
+{
+  height: 300px;
+  width: 300px;
+  border-width:3px;
+  border-color: black;
+  border-style: solid;
+  background-color: #FFF;
+  rotate: 45deg;
+  display: none;
+}
+table
+{
+  rotate: 45deg;
+  border-collapse: collapse;
+  height: 400px;
+  width: 400px;
+  margin: 100px;
+}
+td, th 
+{
+  border: 2px solid #000;
+}
+
+span:hover
+{
+  color:red;
+}
