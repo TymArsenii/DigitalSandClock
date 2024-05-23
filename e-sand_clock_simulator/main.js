@@ -1,4 +1,4 @@
-let matrix_arr = // 1 - particle; 2 - obstacle; 0 - empty
+/*var matrix_arr = // 1 - particle; 2 - obstacle; 0 - empty
 [
   [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
   [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
@@ -16,36 +16,56 @@ let matrix_arr = // 1 - particle; 2 - obstacle; 0 - empty
   [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
   [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
   [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
+];*/
+
+var matrix_arr = // 1 - particle; 2 - obstacle; 0 - empty
+[
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
 ];
-let matrix_width=16;
-let matrix_height=16;
-let id_build="";
+var matrix_width=16;
+var matrix_height=16;
+var id_build="";
 
 function draw_line(array, x0, y0, x1, y1) // Bresenham's algorithm
 {
-  let dx = Math.abs(x1 - x0);
-  let dy = -Math.abs(y1 - y0);
-  let sx = x0 < x1 ? 1 : -1;
-  let sy = y0 < y1 ? 1 : -1;
-  let err = dx + dy;
+  let dx=Math.abs(x1-x0);
+  let dy=-Math.abs(y1-y0);
+  let sx=x0<x1?1:-1;
+  let sy=y0<y1?1:-1;
+  let err=dx+dy;
   let e2;
 
-  while (true) 
+  while(true) 
   {
-    if(array[x0-1][y0-1]!=2) array[x0-1][y0-1] = 3;
+    if(x0<=matrix_width && y0<=matrix_height && array[x0-1][y0-1]!=2) array[x0-1][y0-1]=3;
     
-    if (x0 === x1 && y0 === y1) break;
+    if (x0===x1 && y0===y1) break;
 
-    e2 = 2 * err;
-    if (e2 >= dy) 
+    e2=2*err;
+    if (e2>=dy) 
     {
-      err += dy;
-      x0 += sx;
+      err+=dy;
+      x0+=sx;
     }
-    if (e2 <= dx) 
+    if (e2<=dx) 
     {
-      err += dx;
-      y0 += sy;
+      err+=dx;
+      y0+=sy;
     }
   }
 }
@@ -290,15 +310,60 @@ function map(x, in_min, in_max, out_min, out_max)
 {
   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
+function constrain(x, min_val, max_val)
+{
+  if(x>=min_val && x<=max_val) {;}
+  else if(x<min_val) {x=min_val;}
+  else if(x>max_val) {x=max_val;}
+
+  return x;
+}
 function change_angle()
 {
   let angle_str;
   let angle_inp;
-  let angle_inp45;
-  angle_inp=document.getElementById("inp").value;
+  let height_inp=0;
 
-  draw_line(matrix_arr, 2, 2, 4, 4);
-  console.log(matrix_arr);
+  angle_inp=document.getElementById("inp").value; 
+  height_inp=Number(document.getElementById("inp_height").value)-13;
+  for(let x=1; x<=matrix_width; x++)
+  {
+    for(let y=1; y<=matrix_width; y++)
+    {
+      if(matrix_arr[x-1][y-1]==3)
+      {
+        matrix_arr[x-1][y-1]=0;
+      }
+    }
+  }
+
+  if(angle_inp<=45)
+  {
+    let a_y_tmp=(Math.round(map(angle_inp, 0, 45, 8, 1)))+height_inp;
+    let b_y_tmp=(Math.round(map(angle_inp, 0, 45, 8, 16)))+height_inp;
+    let a_x_tmp=(Math.round(map(angle_inp, 0, 45, 16, 16)));
+    let b_x_tmp=(Math.round(map(angle_inp, 0, 45, 1, 1)));
+
+    console.log
+    (
+      "a_y_tmp="+a_y_tmp+"\n"+
+      "b_y_tmp="+b_y_tmp+"\n"+
+      "a_x_tmp="+a_x_tmp+"\n"+
+      "b_x_tmp="+b_x_tmp
+    );
+
+    draw_line(matrix_arr, a_x_tmp, a_y_tmp, b_x_tmp, b_y_tmp);
+  }
+  else if(angle_inp>45)
+  {
+    let a_y_tmp=constrain((Math.round(map(angle_inp, 46, 90, 16, 16)+height_inp)), 1, 16);
+    let b_y_tmp=constrain((Math.round(map(angle_inp, 46, 90, 1, 1)+height_inp)), 1, 16);
+    let a_x_tmp=constrain((Math.round(map(angle_inp, 46, 90, 1, 8)+height_inp)), 1, 16);
+    let b_x_tmp=constrain((Math.round(map(angle_inp, 46, 90, 16, 8)+height_inp)), 1, 16);
+
+    draw_line(matrix_arr, a_x_tmp, a_y_tmp, b_x_tmp, b_y_tmp);
+  }
+  
   for(let x=1; x<=matrix_width; x++)
   {
     for(let y=1; y<=matrix_width; y++)
