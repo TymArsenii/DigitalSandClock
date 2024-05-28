@@ -1,4 +1,4 @@
-/*var matrix_arr = // 1 - particle; 2 - obstacle; 0 - empty
+/*let matrix_arr = // 1 - particle; 2 - obstacle; 0 - empty
 [
   [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
   [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
@@ -18,7 +18,7 @@
   [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
 ];*/
 
-var matrix_arr = // 1 - particle; 2 - obstacle; 0 - empty
+let matrix_arr = // 1 - particle; 2 - obstacle; 0 - empty
 [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
@@ -37,9 +37,10 @@ var matrix_arr = // 1 - particle; 2 - obstacle; 0 - empty
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
 ];
-var matrix_width=16;
-var matrix_height=16;
+const matrix_width=16;
+const matrix_height=16;
 var id_build="";
+var add_state, remove_state;
 
 function draw_line(array, x0, y0, x1, y1) // Bresenham's algorithm
 {
@@ -50,9 +51,27 @@ function draw_line(array, x0, y0, x1, y1) // Bresenham's algorithm
   let err=dx+dy;
   let e2;
 
+  for(let x=1; x<=matrix_width; x++)
+  {
+    for(let y=1; y<=matrix_width; y++)
+    {
+      id_build=x+";"+y;
+      if(document.getElementById(id_build).style.backgroundColor=='yellow')
+      {
+        document.getElementById(id_build).style.backgroundColor='white';
+      }
+    }
+  }
+
   while(true) 
   {
-    if(x0<=matrix_width && y0<=matrix_height && array[x0-1][y0-1]!=2) array[x0-1][y0-1]=3;
+    if(x0>=1 && y0>=1 && x0<=matrix_width && y0<=matrix_height && array[x0-1][y0-1]!=2) 
+    {
+      id_build=x0+";"+y0;
+      //array[x0-1][y0-1]=3;
+      document.getElementById(id_build).style.backgroundColor='yellow';
+    }
+    if(x0>=1 && y0>=1 && x0<=matrix_width && y0<=matrix_height && array[x0-1][y0-1]==1) return "stop!";
     
     if (x0===x1 && y0===y1) break;
 
@@ -171,24 +190,52 @@ function plus_angle()
 }
 */
 
-setTimeout(auto_add_remove, 150);
+setTimeout(auto_add_remove, 20);
 function auto_add_remove()
 {
-  setTimeout(auto_add_remove, 150);
-  let add_state, remove_state;
+  setTimeout(auto_add_remove, 20);
   add_state=document.getElementById("add_ch").checked;
   remove_state=document.getElementById("remove_ch").checked;
 
   if(add_state) lightup_specific_pixel_no_clear();
   if(remove_state) remove_specific();
 }
-setTimeout(move_particles, 1);
 
-function move_particles()
+let rebuild_timeout=setTimeout(auto_rebuild, 100);
+function auto_rebuild()
 {
-  setTimeout(move_particles, 1);
+  let rebuildup_checkbox_check;
+  rebuildup_checkbox_check=document.getElementById("rebuildup_ch").checked;
+  if(rebuildup_checkbox_check) 
+  {
+    move_particles(1);
+    line_height_adjust();
+  }
+
+  let rebuilddown_checkbox_check;
+  rebuilddown_checkbox_check=document.getElementById("rebuilddown_ch").checked;
+  if(rebuilddown_checkbox_check) 
+  {
+    move_particles(2);
+    line_height_adjust();
+  }
+
+  clearTimeout(rebuild_timeout);
+  rebuild_timeout=setTimeout(auto_rebuild, 100);
+}
+
+let main_timeout=setTimeout(move_particles, 1);
+function move_particles(button=0)
+{
+  clearTimeout(main_timeout);
+  main_timeout=setTimeout(move_particles, 1);
   let angle_inp;
   angle_inp=document.getElementById("inp").value;
+  add_state=document.getElementById("add_ch").checked;
+  remove_state=document.getElementById("remove_ch").checked;
+  let rebuild_button_state=0;
+  if(button==1) rebuild_button_state=1;
+  else if(button==2) rebuild_button_state=2;
 
   for(let x=1; x<=matrix_width; x++)
   {
@@ -202,49 +249,87 @@ function move_particles()
         if(angle_inp>45) angle_map=90-angle_inp;
         else angle_map=angle_inp;
         
-        let percent_chance=map(angle_inp, 0, 45, 0, 100)/100;
-        //console.log('chance='+percent_chance);
-        let next_action=[0, 0, 0, 0, 0, 0, 0];
-        let id=0;
+        let percent_chance=map(angle_map, 0, 45, 0, 100)/100;
+        console.log(angle_inp)
         if(angle_inp<=45)
         {
           if (Math.random()<percent_chance && x<matrix_width && y<matrix_height && matrix_arr[x][y]==0)
           {
             matrix_arr[x][y]=1;
             id_build=(x+1)+";"+(y+1);
-            document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-            id_build=x+";"+y;
-            document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
 
-            next_action[id++]=1;
+            matrix_arr[x-1][y-1]=0;
+            id_build=x+";"+y;
+            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+
           }
           else if(y<matrix_height && matrix_arr[x-1][y]==0)
           {
             matrix_arr[x-1][y]=1;
             id_build=x+";"+(y+1);
-            document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-            id_build=x+";"+y;
-            document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
             
-            next_action[id++]=2;
+            matrix_arr[x-1][y-1]=0;
+            id_build=x+";"+y;
+            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
           }
           else if(x<matrix_width && matrix_arr[x][y-1]==0)
           {
             matrix_arr[x][y-1]=1;
             id_build=(x+1)+";"+y;
-            document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+            
+            matrix_arr[x-1][y-1]=0;
             id_build=x+";"+y;
-            document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-
-            next_action[id++]=3;
+            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
           }
           else
           {
             matrix_arr[x-1][y-1]=1;
             id_build=x+";"+y;
             document.getElementById(id_build).style.backgroundColor='red';
+          }
 
-            next_action[id++]=4;
+          if(angle_inp>23)
+          {
+            if(rebuild_button_state==1 && x<matrix_width && y<=matrix_height && y>1 && matrix_arr[x][y-2]==0 && matrix_arr[x-1][y-1]==1) // +x -y
+            {
+              matrix_arr[x][y-2]=1;
+              id_build=(x+1)+";"+(y-1);
+              //document.getElementById(id_build).style.backgroundColor='#575757';
+              
+              matrix_arr[x-1][y-1]=0;
+              id_build=x+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#4e57d9';
+              console.log("rebuild up");
+            }
+            else if(rebuild_button_state==2 && x<=matrix_width && y<matrix_height && x>1 && matrix_arr[x-2][y]==0 && matrix_arr[x-1][y-1]==1) // -x +y
+            {
+              matrix_arr[x-2][y]=1;
+              id_build=(x-1)+";"+(y+1);
+              console.log(id_build);
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              
+              matrix_arr[x-1][y-1]=0;
+              id_build=x+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              console.log("rebuild down");
+            }
+          }
+          else if(angle_inp<=23)
+          {
+            if(rebuild_button_state==2 && x>1 && matrix_arr[x-2][y-1]==0 && matrix_arr[x-1][y-1]==1)
+            {
+              matrix_arr[x-2][y-1]=1;
+              id_build=(x-1)+";"+(y);
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+  
+              matrix_arr[x-1][y-1]=0;
+              id_build=x+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              console.log("rebuild down <=23 45");
+            }
           }
         }
         else if(angle_inp>45)
@@ -255,40 +340,82 @@ function move_particles()
           {
             matrix_arr[x][y]=1;
             id_build=(x+1)+";"+(y+1);
-            document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
             id_build=x+";"+y;
-            document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-
-            next_action[id++]=1;
+            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+            
+            matrix_arr[x-1][y-1]=0;
           }
           else if(x<matrix_width && matrix_arr[x][y-1]==0)
           {
             matrix_arr[x][y-1]=1;
             id_build=(x+1)+";"+y;
-            document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+            
+            matrix_arr[x-1][y-1]=0;
             id_build=x+";"+y;
-            document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-
-            next_action[id++]=3;
+            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
           }
           else if(y<matrix_height && matrix_arr[x-1][y]==0)
           {
             matrix_arr[x-1][y]=1;
             id_build=x+";"+(y+1);
-            document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-            id_build=x+";"+y;
-            document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
             
-            next_action[id++]=2;
+            matrix_arr[x-1][y-1]=0;
+            id_build=x+";"+y;
+            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
           }
           else
           {
             matrix_arr[x-1][y-1]=1;
             id_build=x+";"+y;
             document.getElementById(id_build).style.backgroundColor='red';
-
-            next_action[id++]=4;
           }
+          line_height_adjust();
+
+          if(angle_inp>23)
+          {
+            if(rebuild_button_state==1 && x<matrix_width && y<=matrix_height && y>1 && matrix_arr[x][y-2]==0 && matrix_arr[x-1][y-1]==1) // +x -y
+            {
+              matrix_arr[x][y-2]=1;
+              id_build=(x+1)+";"+(y-1);
+              //document.getElementById(id_build).style.backgroundColor='#575757';
+              
+              matrix_arr[x-1][y-1]=0;
+              id_build=x+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#4e57d9';
+              console.log("rebuild up");
+            }
+            else if(rebuild_button_state==2 && x<=matrix_width && y<matrix_height && x>1 && matrix_arr[x-2][y]==0 && matrix_arr[x-1][y-1]==1) // -x +y
+            {
+              matrix_arr[x-2][y]=1;
+              id_build=(x-1)+";"+(y+1);
+              console.log(id_build);
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              
+              matrix_arr[x-1][y-1]=0;
+              id_build=x+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              console.log("rebuild down");
+            }
+          }
+          else if(angle_inp<=23)
+          {
+            if(rebuild_button_state==2 && y>1 && matrix_arr[x-1][y-2]==0 && matrix_arr[x-1][y-1]==1)
+            {
+              matrix_arr[x-1][y-2]=1;
+              id_build=(x)+";"+(y-1);
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+  
+              matrix_arr[x-1][y-1]=0;
+              id_build=x+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              console.log("rebuild down <=23");
+            }
+          }
+
+          angle_inp=90-angle_inp;
         }
       }
     }
@@ -298,14 +425,93 @@ function move_particles()
 
   for(let x=1; x<=matrix_width; x++)
   {
-    for(let y=1; y<=matrix_height; y++)
+    for(let y=1; y<=matrix_width; y++)
     {
       id_build="";
       id_build=x+";"+y;
       document.getElementById(id_build).innerHTML=matrix_arr[x-1][y-1];
+      if(matrix_arr[x-1][y-1]==0 && document.getElementById(id_build).style.backgroundColor!='yellow')
+      {
+        document.getElementById(id_build).style.backgroundColor='white';
+      }
+      else if(matrix_arr[x-1][y-1]==1)
+      {
+        document.getElementById(id_build).style.backgroundColor='red';
+      }
+      else if(matrix_arr[x-1][y-1]==2)
+      {
+        document.getElementById(id_build).style.backgroundColor='green';
+      }
+      /*
+      else if(matrix_arr[x-1][y-1]==3)
+      {
+        document.getElementById(id_build).style.backgroundColor='yellow';
+        matrix_arr[x-1][y-1]=0;
+      }
+      */
     }
   }
+  delete id_build;
 }
+
+function line_height_adjust()
+{
+  let draw_line_feedback;
+  let line_height=-15;
+  angle_inp=document.getElementById("inp").value; 
+  while(true)
+  {
+    if(angle_inp<=45)
+    {
+      let a_y_tmp=(Math.round(map(angle_inp, 0, 45, 8, 1)))+line_height;
+      let b_y_tmp=(Math.round(map(angle_inp, 0, 45, 8, 16)))+line_height;
+      let a_x_tmp=(Math.round(map(angle_inp, 0, 45, 16, 16)));
+      let b_x_tmp=(Math.round(map(angle_inp, 0, 45, 1, 1)));
+
+      draw_line_feedback=draw_line(matrix_arr, a_x_tmp, a_y_tmp, b_x_tmp, b_y_tmp);
+    }
+    else if(angle_inp>45)
+    {
+      let a_y_tmp=(Math.round(map(angle_inp, 46, 90, 16, 16)));
+      let b_y_tmp=(Math.round(map(angle_inp, 46, 90, 1, 1)));
+      let a_x_tmp=(Math.round(map(angle_inp, 46, 90, 1, 8)));
+      let b_x_tmp=(Math.round(map(angle_inp, 46, 90, 16, 8)));
+      a_x_tmp+=line_height;
+      b_x_tmp+=line_height;
+
+      
+      draw_line_feedback=draw_line(matrix_arr, a_x_tmp, a_y_tmp, b_x_tmp, b_y_tmp);
+    }
+    if(draw_line_feedback=="stop!" || line_height>50)
+    {
+      if(draw_line_feedback=="stop!")
+      {
+        line_height--;
+        if(angle_inp<=45)
+        {
+          let a_y_tmp=(Math.round(map(angle_inp, 0, 45, 8, 1)))+line_height;
+          let b_y_tmp=(Math.round(map(angle_inp, 0, 45, 8, 16)))+line_height;
+          let a_x_tmp=(Math.round(map(angle_inp, 0, 45, 16, 16)));
+          let b_x_tmp=(Math.round(map(angle_inp, 0, 45, 1, 1)));
+    
+          draw_line_feedback=draw_line(matrix_arr, a_x_tmp, a_y_tmp, b_x_tmp, b_y_tmp);
+        }
+        else if(angle_inp>45)
+        {
+          let a_y_tmp=(Math.round(map(angle_inp, 46, 90, 16, 16)));
+          let b_y_tmp=(Math.round(map(angle_inp, 46, 90, 1, 1)));
+          let a_x_tmp=(Math.round(map(angle_inp, 46, 90, 1, 8)))+line_height;
+          let b_x_tmp=(Math.round(map(angle_inp, 46, 90, 16, 8)))+line_height;
+          
+          draw_line_feedback=draw_line(matrix_arr, a_x_tmp, a_y_tmp, b_x_tmp, b_y_tmp);
+        }
+        //change_angle();
+      }
+      break;
+    }
+    line_height++;
+  }
+} 
 function map(x, in_min, in_max, out_min, out_max) 
 {
   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -336,33 +542,6 @@ function change_angle()
       }
     }
   }
-
-  if(angle_inp<=45)
-  {
-    let a_y_tmp=(Math.round(map(angle_inp, 0, 45, 8, 1)))+height_inp;
-    let b_y_tmp=(Math.round(map(angle_inp, 0, 45, 8, 16)))+height_inp;
-    let a_x_tmp=(Math.round(map(angle_inp, 0, 45, 16, 16)));
-    let b_x_tmp=(Math.round(map(angle_inp, 0, 45, 1, 1)));
-
-    console.log
-    (
-      "a_y_tmp="+a_y_tmp+"\n"+
-      "b_y_tmp="+b_y_tmp+"\n"+
-      "a_x_tmp="+a_x_tmp+"\n"+
-      "b_x_tmp="+b_x_tmp
-    );
-
-    draw_line(matrix_arr, a_x_tmp, a_y_tmp, b_x_tmp, b_y_tmp);
-  }
-  else if(angle_inp>45)
-  {
-    let a_y_tmp=constrain((Math.round(map(angle_inp, 46, 90, 16, 16)+height_inp)), 1, 16);
-    let b_y_tmp=constrain((Math.round(map(angle_inp, 46, 90, 1, 1)+height_inp)), 1, 16);
-    let a_x_tmp=constrain((Math.round(map(angle_inp, 46, 90, 1, 8)+height_inp)), 1, 16);
-    let b_x_tmp=constrain((Math.round(map(angle_inp, 46, 90, 16, 8)+height_inp)), 1, 16);
-
-    draw_line(matrix_arr, a_x_tmp, a_y_tmp, b_x_tmp, b_y_tmp);
-  }
   
   for(let x=1; x<=matrix_width; x++)
   {
@@ -383,10 +562,13 @@ function change_angle()
       {
         document.getElementById(id_build).style.backgroundColor='green';
       }
+      /*
       else if(matrix_arr[x-1][y-1]==3)
       {
         document.getElementById(id_build).style.backgroundColor='yellow';
+        matrix_arr[x-1][y-1]=0;
       }
+      */
     }
   }
 
