@@ -1,42 +1,64 @@
-/*let matrix_arr = // 1 - particle; 2 - obstacle; 0 - empty
-[
-  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
-];*/
-
 let matrix_arr = // 1 - particle; 2 - obstacle; 0 - empty
 [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2], 
+  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0], 
 ];
+
+/*let matrix_arr = // 1 - particle; 2 - obstacle; 0 - empty
+[
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1], 
+];
+*/
+
+/*let matrix_arr = // 1 - particle; 2 - obstacle; 0 - empty
+[
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], 
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1], 
+];*/
+
 const matrix_width=16;
 const matrix_height=16;
 var id_build="";
@@ -106,7 +128,7 @@ function turn_off_text_processing()
 
   for(let x=0; x<x_values.length; x++)
   {
-    if(matrix_arr[x_values[x]-1][y_values[x]-1]==0) 
+    if(matrix_arr[x_values[x]-1][y_values[x]-1]==1) 
     {
       matrix_arr[x_values[x]-1][y_values[x]-1]=0;
 
@@ -140,8 +162,8 @@ function lightup_text_processing()
   const x_values = coordinates.map(coordinate => coordinate.x);
   const y_values = coordinates.map(coordinate => coordinate.y);
 
-  console.log(x_values);
-  console.log(y_values);
+  //console.log(x_values);
+  //console.log(y_values);
 
   for(let x=0; x<x_values.length; x++)
   {
@@ -170,7 +192,7 @@ function plus_angle()
 {
   let angle_change;
   angle_change=document.getElementById("save_angle").textContent;
-  console.log(angle_change);
+  //console.log(angle_change);
   setTimeout(plus_angle, 500);
   angle_change++;
   angle_change++;
@@ -190,10 +212,11 @@ function plus_angle()
 }
 */
 
-setTimeout(auto_add_remove, 20);
+let add_remove_timeout=setTimeout(auto_add_remove, 20);
 function auto_add_remove()
 {
-  setTimeout(auto_add_remove, 20);
+  clearTimeout(add_remove_timeout);
+  add_remove_timeout=setTimeout(auto_add_remove, 20);
   add_state=document.getElementById("add_ch").checked;
   remove_state=document.getElementById("remove_ch").checked;
 
@@ -209,7 +232,6 @@ function auto_rebuild()
   if(rebuildup_checkbox_check) 
   {
     move_particles(1);
-    line_height_adjust();
   }
 
   let rebuilddown_checkbox_check;
@@ -217,7 +239,6 @@ function auto_rebuild()
   if(rebuilddown_checkbox_check) 
   {
     move_particles(2);
-    line_height_adjust();
   }
 
   clearTimeout(rebuild_timeout);
@@ -237,52 +258,394 @@ function move_particles(button=0)
   if(button==1) rebuild_button_state=1;
   else if(button==2) rebuild_button_state=2;
 
-  for(let x=1; x<=matrix_width; x++)
+  let angle_map;
+  if(angle_inp<=45) angle_map=angle_inp;
+  else if(angle_inp>45 && angle_inp<=90) angle_map=90-angle_inp;
+  else if(angle_inp>90 && angle_inp<=135) angle_map=angle_inp-90;
+  else if(angle_inp>135 && angle_inp<=180) angle_map=180-angle_inp;
+  else if(angle_inp>180 && angle_inp<=225) angle_map=225-angle_inp;
+  else if(angle_inp>225 && angle_inp<=270) angle_map=270-angle_inp;
+  else if(angle_inp>270 && angle_inp<=315) angle_map=315-angle_inp;
+  else if(angle_inp>315 && angle_inp<=360) angle_map=360-angle_inp;
+
+  let percent_chance=map(angle_map, 0, 45, 5, 95)/100;
+  percent_chance=0.05;
+
+
+
+
+
+// --------------------------------- MOVING --------------------------------->>>
+
+  
+  if(angle_inp>=0 && angle_inp<=90) //WORKS!
+  {
+    for(let x=1; x<=matrix_width; x++)
+    {
+      for(let y=1; y<=matrix_height; y++)
+      {
+        if(matrix_arr[x-1][y-1]==1)
+        {
+          matrix_arr[x-1][y-1]=0;
+  
+          if(angle_inp<=45)
+          {
+            if (x<matrix_width && y<matrix_height && matrix_arr[x][y]==0)
+            {
+              matrix_arr[x][y]=1;
+              id_build=(x+1)+";"+(y+1);
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+  
+              matrix_arr[x-1][y-1]=0;
+              id_build=x+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+  
+            }
+            else if(y<matrix_height && matrix_arr[x-1][y]==0)
+            {
+              matrix_arr[x-1][y]=1;
+              id_build=x+";"+(y+1);
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              
+              matrix_arr[x-1][y-1]=0;
+              id_build=x+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+            }
+            else if(x<matrix_width && matrix_arr[x][y-1]==0)
+            {
+              matrix_arr[x][y-1]=1;
+              id_build=(x+1)+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              
+              matrix_arr[x-1][y-1]=0;
+              id_build=x+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+            }
+            else
+            {
+              matrix_arr[x-1][y-1]=1;
+              id_build=x+";"+y;
+              document.getElementById(id_build).style.backgroundColor='red';
+            }
+  
+            if(angle_inp>23)
+            {
+              if(rebuild_button_state==1 && x<matrix_width && y<=matrix_height && y>1 && matrix_arr[x][y-2]==0 && matrix_arr[x-1][y-1]==1) // +x -y
+              {
+                matrix_arr[x][y-2]=1;
+                id_build=(x+1)+";"+(y-1);
+                //document.getElementById(id_build).style.backgroundColor='#575757';
+                
+                matrix_arr[x-1][y-1]=0;
+                id_build=x+";"+y;
+                //document.getElementById(id_build).style.backgroundColor='#4e57d9';
+              }
+              else if(rebuild_button_state==2 && x<=matrix_width && y<matrix_height && x>1 && matrix_arr[x-2][y]==0 && matrix_arr[x-1][y-1]==1) // -x +y
+              {
+                matrix_arr[x-2][y]=1;
+                id_build=(x-1)+";"+(y+1);
+                //console.log(id_build);
+                //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+                
+                matrix_arr[x-1][y-1]=0;
+                id_build=x+";"+y;
+                //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              }
+            }
+            else if(angle_inp<=23)
+            {
+              if(rebuild_button_state==2 && x>1 && matrix_arr[x-2][y-1]==0 && matrix_arr[x-1][y-1]==1)
+              {
+                matrix_arr[x-2][y-1]=1;
+                id_build=(x-1)+";"+(y);
+                //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+  
+                matrix_arr[x-1][y-1]=0;
+                id_build=x+";"+y;
+                //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              }
+            }
+          } //if(angle_inp<=45)
+          else if(angle_inp>45 && angle_inp<=90)
+          {
+            //console.log('90');
+            angle_inp=90-angle_inp;
+  
+            if (x<matrix_width && y<matrix_height && matrix_arr[x][y]==0)
+            {
+              matrix_arr[x][y]=1;
+              id_build=(x+1)+";"+(y+1);
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              id_build=x+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              
+              matrix_arr[x-1][y-1]=0;
+            }
+            else if(x<matrix_width && matrix_arr[x][y-1]==0)
+            {
+              matrix_arr[x][y-1]=1;
+              id_build=(x+1)+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              
+              matrix_arr[x-1][y-1]=0;
+              id_build=x+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+            }
+            else if(y<matrix_height && matrix_arr[x-1][y]==0)
+            {
+              matrix_arr[x-1][y]=1;
+              id_build=x+";"+(y+1);
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+              
+              matrix_arr[x-1][y-1]=0;
+              id_build=x+";"+y;
+              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+            }
+            else
+            {
+              matrix_arr[x-1][y-1]=1;
+              id_build=x+";"+y;
+              document.getElementById(id_build).style.backgroundColor='red';
+            }
+            
+  
+            if(angle_inp>23)
+            {
+              if(rebuild_button_state==1 && x<matrix_width && y<=matrix_height && y>1 && matrix_arr[x][y-2]==0 && matrix_arr[x-1][y-1]==1) // +x -y
+              {
+                matrix_arr[x][y-2]=1;
+                id_build=(x+1)+";"+(y-1);
+                //document.getElementById(id_build).style.backgroundColor='#575757';
+                
+                matrix_arr[x-1][y-1]=0;
+                id_build=x+";"+y;
+                //document.getElementById(id_build).style.backgroundColor='#4e57d9';
+                //console.log("rebuild up");
+              }
+              else if(rebuild_button_state==2 && x<=matrix_width && y<matrix_height && x>1 && matrix_arr[x-2][y]==0 && matrix_arr[x-1][y-1]==1) // -x +y
+              {
+                matrix_arr[x-2][y]=1;
+                id_build=(x-1)+";"+(y+1);
+                //console.log(id_build);
+                //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+                
+                matrix_arr[x-1][y-1]=0;
+                id_build=x+";"+y;
+                //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+                //console.log("rebuild down");
+              }
+            }
+            else if(angle_inp<=23)
+            {
+              if(rebuild_button_state==2 && y>1 && matrix_arr[x-1][y-2]==0 && matrix_arr[x-1][y-1]==1)
+              {
+                matrix_arr[x-1][y-2]=1;
+                id_build=(x)+";"+(y-1);
+                //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+  
+                matrix_arr[x-1][y-1]=0;
+                id_build=x+";"+y;
+                //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
+                //console.log("rebuild down <=23");
+              }
+            }
+  
+            angle_inp=90-angle_inp;
+          } //else if(angle_inp>45 && angle_inp<=90)
+        } //if(matrix_arr[x-1][y-1]==1)
+      } //for(let y=1; y<=matrix_height; y++)
+    } //for(let x=1; x<=matrix_width; x++)
+  } //if(angle_inp>=0 && angle_inp<=90)
+  else if(angle_inp>90 && angle_inp<=180) //WORKS!
+  {
+    for(let y=matrix_height; y>=1; y--)
+    {
+      for(let x=1; x<=matrix_width; x++)
+      {
+        if(matrix_arr[x-1][y-1]==1)
+        {
+          matrix_arr[x-1][y-1]=0;
+          if (x<matrix_width && y>1 && matrix_arr[x][y-2]==0) //diagonal
+          {
+            matrix_arr[x][y-2]=1;
+            matrix_arr[x-1][y-1]=0;
+          }
+          else if(x<matrix_width && matrix_arr[x][y-1]==0) //down
+          {
+            matrix_arr[x][y-1]=1;
+            matrix_arr[x-1][y-1]=0;
+          }
+          else if(y>1 && matrix_arr[x-1][y-2]==0) //right
+          {
+            matrix_arr[x-1][y-2]=1;
+            matrix_arr[x-1][y-1]=0;
+          }
+          else
+          {
+            matrix_arr[x-1][y-1]=1;
+            id_build=x+";"+y;
+            document.getElementById(id_build).style.backgroundColor='red';
+          }
+
+          let mid_angle=145;
+          let max_angle=180;
+          let min_angle=90;
+          if(angle_inp<=mid_angle)
+          {
+            angle_inp=angle_inp-min_angle;
+            if(angle_inp>23)
+            {
+              if(rebuild_button_state==1 && x>1 && y>1 && matrix_arr[x-2][y-2]==0 && matrix_arr[x-1][y-1]==1) //right
+              {
+                matrix_arr[x-2][y-2]=1;
+                matrix_arr[x-1][y-1]=0;
+              }
+              else if(rebuild_button_state==2 && x<matrix_width && y<matrix_height && matrix_arr[x][y]==0 && matrix_arr[x-1][y-1]==1) //left
+              {
+                matrix_arr[x][y]=1;
+                matrix_arr[x-1][y-1]=0;
+              }
+            }
+            else if(angle_inp<=23)
+            {
+              if(rebuild_button_state==2)
+              {
+                if(y<matrix_height && matrix_arr[x-1][y]==0 && matrix_arr[x-1][y-1]==1) //down
+                {
+                  matrix_arr[x-1][y]=1;
+                  matrix_arr[x-1][y-1]=0;
+                }
+              }
+            }
+            angle_inp=angle_inp+min_angle;
+          }
+          else if(angle_inp>mid_angle)
+          {
+            angle_inp=max_angle-angle_inp;
+            if(angle_inp<=23)
+            {
+              if(rebuild_button_state==2)
+              {
+                if(x>1 && matrix_arr[x-2][y-1]==0 && matrix_arr[x-1][y-1]==1) //down
+                {
+                  matrix_arr[x-2][y-1]=1;
+                  matrix_arr[x-1][y-1]=0;
+                }
+              }
+            }
+            angle_inp=max_angle-angle_inp;
+          }
+        } //if(matrix_arr[x-1][y-1]==1)
+      } //for
+    } //for
+  } //else if(angle_inp>90 && angle_inp<=180) 
+  else if(angle_inp>180 && angle_inp<=270) //WORKS!
+  {
+    for(let x=matrix_width; x>=1; x--)
+    {
+      for(let y=matrix_height; y>=1; y--)
+      {
+        if(matrix_arr[x-1][y-1]==1)
+        {
+          matrix_arr[x-1][y-1]=0;
+          if (x>1 && y>1 && matrix_arr[x-2][y-2]==0) //diagonal
+          {
+            matrix_arr[x-2][y-2]=1;
+            matrix_arr[x-1][y-1]=0;
+          }
+          else if(x>1 && matrix_arr[x-2][y-1]==0) //right
+          {
+            matrix_arr[x-2][y-1]=1;
+            matrix_arr[x-1][y-1]=0;
+          }
+          else if(y>1 && matrix_arr[x-1][y-2]==0) //down
+          {
+            matrix_arr[x-1][y-2]=1;
+            matrix_arr[x-1][y-1]=0;
+          }
+          else
+          {
+            matrix_arr[x-1][y-1]=1;
+            id_build=x+";"+y;
+            document.getElementById(id_build).style.backgroundColor='red';
+          }
+
+
+          let mid_angle=225;
+          let max_angle=270;
+          let min_angle=180;
+          if(angle_inp<=mid_angle)
+          {
+            angle_inp=angle_inp-min_angle;
+            if(angle_inp>23)
+            {
+              if(rebuild_button_state==1 && x>1 && y<matrix_height && matrix_arr[x-2][y]==0 && matrix_arr[x-1][y-1]==1) //right
+              {
+                matrix_arr[x-2][y]=1;
+                matrix_arr[x-1][y-1]=0;
+              }
+              else if(rebuild_button_state==2 && x<matrix_width && y>1 && matrix_arr[x][y-2]==0 && matrix_arr[x-1][y-1]==1) //left
+              {
+                matrix_arr[x][y-2]=1;
+                matrix_arr[x-1][y-1]=0;
+              }
+            }
+            else if(angle_inp<=23)
+            {
+              if(rebuild_button_state==2)
+              {
+                if(x<matrix_width && matrix_arr[x][y-1]==0 && matrix_arr[x-1][y-1]==1) //down
+                {
+                  matrix_arr[x][y-1]=1;
+                  matrix_arr[x-1][y-1]=0;
+                }
+              }
+            }
+            angle_inp=angle_inp+min_angle;
+          }
+          else if(angle_inp>mid_angle)
+          {
+            angle_inp=max_angle-angle_inp;
+            if(angle_inp<=23)
+            {
+              if(rebuild_button_state==2)
+              {
+                if(y<matrix_height && matrix_arr[x-1][y]==0 && matrix_arr[x-1][y-1]==1) //down
+                {
+                  matrix_arr[x-1][y]=1;
+                  matrix_arr[x-1][y-1]=0;
+                }
+              }
+            }
+            angle_inp=max_angle-angle_inp;
+          }
+        } //if(matrix_arr[x-1][y-1]==1)
+      } //for
+    } //for
+  } //else if(angle_inp>180 && angle_inp<=270)
+  else if(angle_inp>270 && angle_inp<=360)
   {
     for(let y=1; y<=matrix_height; y++)
     {
-      if(matrix_arr[x-1][y-1]==1)
+      for(let x=matrix_width; x>=1; x--)
       {
-        let angle_map;
-        matrix_arr[x-1][y-1]=0;
-
-        if(angle_inp>45) angle_map=90-angle_inp;
-        else angle_map=angle_inp;
-        
-        let percent_chance=map(angle_map, 0, 45, 0, 100)/100;
-        console.log(angle_inp)
-        if(angle_inp<=45)
+        if(matrix_arr[x-1][y-1]==1)
         {
-          if (Math.random()<percent_chance && x<matrix_width && y<matrix_height && matrix_arr[x][y]==0)
+          matrix_arr[x-1][y-1]=0;
+          if (x>1 && y<matrix_height && matrix_arr[x-2][y]==0) //diagonal
           {
-            matrix_arr[x][y]=1;
-            id_build=(x+1)+";"+(y+1);
-            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-
+            matrix_arr[x-2][y]=1;
             matrix_arr[x-1][y-1]=0;
-            id_build=x+";"+y;
-            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-
           }
-          else if(y<matrix_height && matrix_arr[x-1][y]==0)
+          else if(y<matrix_height && matrix_arr[x-1][y]==0) //right
           {
             matrix_arr[x-1][y]=1;
-            id_build=x+";"+(y+1);
-            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-            
             matrix_arr[x-1][y-1]=0;
-            id_build=x+";"+y;
-            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
           }
-          else if(x<matrix_width && matrix_arr[x][y-1]==0)
+          else if(x>1 && matrix_arr[x-2][y-1]==0) //down
           {
-            matrix_arr[x][y-1]=1;
-            id_build=(x+1)+";"+y;
-            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-            
+            matrix_arr[x-2][y-1]=1;
             matrix_arr[x-1][y-1]=0;
-            id_build=x+";"+y;
-            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
           }
           else
           {
@@ -291,137 +654,67 @@ function move_particles(button=0)
             document.getElementById(id_build).style.backgroundColor='red';
           }
 
-          if(angle_inp>23)
-          {
-            if(rebuild_button_state==1 && x<matrix_width && y<=matrix_height && y>1 && matrix_arr[x][y-2]==0 && matrix_arr[x-1][y-1]==1) // +x -y
-            {
-              matrix_arr[x][y-2]=1;
-              id_build=(x+1)+";"+(y-1);
-              //document.getElementById(id_build).style.backgroundColor='#575757';
-              
-              matrix_arr[x-1][y-1]=0;
-              id_build=x+";"+y;
-              //document.getElementById(id_build).style.backgroundColor='#4e57d9';
-              console.log("rebuild up");
-            }
-            else if(rebuild_button_state==2 && x<=matrix_width && y<matrix_height && x>1 && matrix_arr[x-2][y]==0 && matrix_arr[x-1][y-1]==1) // -x +y
-            {
-              matrix_arr[x-2][y]=1;
-              id_build=(x-1)+";"+(y+1);
-              console.log(id_build);
-              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-              
-              matrix_arr[x-1][y-1]=0;
-              id_build=x+";"+y;
-              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-              console.log("rebuild down");
-            }
-          }
-          else if(angle_inp<=23)
-          {
-            if(rebuild_button_state==2 && x>1 && matrix_arr[x-2][y-1]==0 && matrix_arr[x-1][y-1]==1)
-            {
-              matrix_arr[x-2][y-1]=1;
-              id_build=(x-1)+";"+(y);
-              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-  
-              matrix_arr[x-1][y-1]=0;
-              id_build=x+";"+y;
-              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-              console.log("rebuild down <=23 45");
-            }
-          }
-        }
-        else if(angle_inp>45)
-        {
-          angle_inp=90-angle_inp;
 
-          if (Math.random()<percent_chance && x<matrix_width && y<matrix_height && matrix_arr[x][y]==0)
+          let mid_angle=315;
+          let max_angle=360;
+          let min_angle=270;
+          if(angle_inp<=mid_angle)
           {
-            matrix_arr[x][y]=1;
-            id_build=(x+1)+";"+(y+1);
-            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-            id_build=x+";"+y;
-            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-            
-            matrix_arr[x-1][y-1]=0;
-          }
-          else if(x<matrix_width && matrix_arr[x][y-1]==0)
-          {
-            matrix_arr[x][y-1]=1;
-            id_build=(x+1)+";"+y;
-            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-            
-            matrix_arr[x-1][y-1]=0;
-            id_build=x+";"+y;
-            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-          }
-          else if(y<matrix_height && matrix_arr[x-1][y]==0)
-          {
-            matrix_arr[x-1][y]=1;
-            id_build=x+";"+(y+1);
-            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-            
-            matrix_arr[x-1][y-1]=0;
-            id_build=x+";"+y;
-            //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-          }
-          else
-          {
-            matrix_arr[x-1][y-1]=1;
-            id_build=x+";"+y;
-            document.getElementById(id_build).style.backgroundColor='red';
-          }
-          line_height_adjust();
-
-          if(angle_inp>23)
-          {
-            if(rebuild_button_state==1 && x<matrix_width && y<=matrix_height && y>1 && matrix_arr[x][y-2]==0 && matrix_arr[x-1][y-1]==1) // +x -y
+            angle_inp=angle_inp-min_angle;
+            if(angle_inp>23)
             {
-              matrix_arr[x][y-2]=1;
-              id_build=(x+1)+";"+(y-1);
-              //document.getElementById(id_build).style.backgroundColor='#575757';
-              
-              matrix_arr[x-1][y-1]=0;
-              id_build=x+";"+y;
-              //document.getElementById(id_build).style.backgroundColor='#4e57d9';
-              console.log("rebuild up");
+              if(rebuild_button_state==1 && x<matrix_width && y<matrix_height && matrix_arr[x][y]==0 && matrix_arr[x-1][y-1]==1) //right
+              {
+                matrix_arr[x][y]=1;
+                matrix_arr[x-1][y-1]=0;
+              }
+              else if(rebuild_button_state==2 && x>1 && y>1 && matrix_arr[x-2][y-2]==0 && matrix_arr[x-1][y-1]==1) //left
+              {
+                matrix_arr[x-2][y-2]=1;
+                matrix_arr[x-1][y-1]=0;
+              }
             }
-            else if(rebuild_button_state==2 && x<=matrix_width && y<matrix_height && x>1 && matrix_arr[x-2][y]==0 && matrix_arr[x-1][y-1]==1) // -x +y
+            else if(angle_inp<=23)
             {
-              matrix_arr[x-2][y]=1;
-              id_build=(x-1)+";"+(y+1);
-              console.log(id_build);
-              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-              
-              matrix_arr[x-1][y-1]=0;
-              id_build=x+";"+y;
-              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-              console.log("rebuild down");
+              if(rebuild_button_state==2)
+              {
+                if(y>1 && matrix_arr[x-1][y-2]==0 && matrix_arr[x-1][y-1]==1) //down
+                {
+                  matrix_arr[x-1][y-2]=1;
+                  matrix_arr[x-1][y-1]=0;
+                }
+              }
             }
+            angle_inp=angle_inp+min_angle;
           }
-          else if(angle_inp<=23)
+          else if(angle_inp>mid_angle)
           {
-            if(rebuild_button_state==2 && y>1 && matrix_arr[x-1][y-2]==0 && matrix_arr[x-1][y-1]==1)
+            angle_inp=max_angle-angle_inp;
+            if(angle_inp<=23)
             {
-              matrix_arr[x-1][y-2]=1;
-              id_build=(x)+";"+(y-1);
-              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-  
-              matrix_arr[x-1][y-1]=0;
-              id_build=x+";"+y;
-              //document.getElementById(id_build).style.backgroundColor='#b3b3b3';
-              console.log("rebuild down <=23");
+              if(rebuild_button_state==2)
+              {
+                if(x<matrix_width && matrix_arr[x][y-1]==0 && matrix_arr[x-1][y-1]==1) //down
+                {
+                  matrix_arr[x][y-1]=1;
+                  matrix_arr[x-1][y-1]=0;
+                }
+              }
             }
+            angle_inp=max_angle-angle_inp;
           }
+        } //if(matrix_arr[x-1][y-1]==1)
+      } //for
+    } //for
+  } //else if(angle_inp>270 && angle_inp<=360)
 
-          angle_inp=90-angle_inp;
-        }
-      }
-    }
-  }
 
-  document.getElementById("pos").innerHTML=id_build;
+// <<<--------------------------------- MOVING ---------------------------------
+
+
+
+
+  line_height_adjust();
 
   for(let x=1; x<=matrix_width; x++)
   {
@@ -451,7 +744,24 @@ function move_particles(button=0)
       */
     }
   }
-  delete id_build;
+  id_build=null;
+}
+
+function particle_amount_calc()
+{ 
+  let particle_amount=0;
+  for(let x=1; x<=matrix_width; x++)
+  {
+    for(let y=0; y<=matrix_height; y++)
+    {
+      if(matrix_arr[x-1][y-1]==1)
+      {
+        particle_amount++;
+      }
+    }
+  }
+
+  document.getElementById("particles_amount_print").innerHTML=particle_amount;
 }
 
 function line_height_adjust()
@@ -511,6 +821,7 @@ function line_height_adjust()
     }
     line_height++;
   }
+  change_angle();
 } 
 function map(x, in_min, in_max, out_min, out_max) 
 {
@@ -524,14 +835,26 @@ function constrain(x, min_val, max_val)
 
   return x;
 }
-function change_angle()
+function change_angle(where=2)
 {
   let angle_str;
   let angle_inp;
   let height_inp=0;
 
+/*
+  if(where==1)
+  {
+    angle_inp=document.getElementById("inp").value; 
+    document.getElementById("angle_print").value=angle_inp;
+  }
+  else if(where==2)
+  {
+    angle_inp=document.getElementById("angle_print").value; 
+    document.getElementById("inp").value=angle_inp; 
+  }
+*/
   angle_inp=document.getElementById("inp").value; 
-  height_inp=Number(document.getElementById("inp_height").value)-13;
+  //height_inp=Number(document.getElementById("inp_height").value)-13;
   for(let x=1; x<=matrix_width; x++)
   {
     for(let y=1; y<=matrix_width; y++)
@@ -550,7 +873,7 @@ function change_angle()
       id_build="";
       id_build=x+";"+y;
       document.getElementById(id_build).innerHTML=matrix_arr[x-1][y-1];
-      if(matrix_arr[x-1][y-1]==0)
+      if(matrix_arr[x-1][y-1]==0 && document.getElementById(id_build).style.backgroundColor!='yellow')
       {
         document.getElementById(id_build).style.backgroundColor='white';
       }
@@ -572,11 +895,15 @@ function change_angle()
     }
   }
 
+  //line_height_adjust();
+
+  particle_amount_calc();
+
   angle_str=angle_inp+'deg';
   document.getElementById("square").style.rotate=angle_str; 
   document.getElementById("table_id").style.rotate=angle_str; 
-  document.getElementById("angle_print").innerHTML=angle_str;
   document.getElementById("save_angle").innerHTML=angle_inp;
+document.getElementById("angle_print").innerHTML=angle_str;
 }
 function lightup_random_pixel_no_clear()
 {
