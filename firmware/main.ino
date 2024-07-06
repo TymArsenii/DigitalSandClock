@@ -163,12 +163,6 @@ void setup()
 
   mtrx.begin();
   mtrx.setBright(1);
-  set_dot(9-1, 9-1, 1);
-  set_dot(9-1, 11-1, 1);
-  set_dot(9-1, 13-1, 1);
-  set_dot(9-1, 15-1, 1);
-mtrx.update();
-delay(5000);
 }
 
 void loop() 
