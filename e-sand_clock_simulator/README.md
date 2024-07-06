@@ -4,3 +4,6 @@
 ![Feature Screenshot](https://exch.com.ua/e-sand_clock/45deg2.jpeg)
 ![Feature Screenshot](https://exch.com.ua/e-sand_clock/90deg.jpeg)
 ![Feature Screenshot](https://exch.com.ua/e-sand_clock/90deg2.jpeg)
+
+<br><br>
+<p align="right"><strong>Arsenii's Technologies</strong></p>
