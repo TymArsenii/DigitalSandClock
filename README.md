@@ -16,6 +16,9 @@ Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_
 - (TODO) Set timer from app
 - (TODO) Receive notification when timer ends
 
+## Changelog
+- v1.0 - Release
+
 
 <br><br>
 <p align="right"><strong>Arsenii's Technologies</strong></p>
