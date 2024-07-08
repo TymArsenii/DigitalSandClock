@@ -14,7 +14,7 @@ Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_
 - (TODO) Set timer with buttons
 - (TODO) Beeping sound when timer ends
 - (TODO) Set timer from app
-- (TODO) Receive notification when timer ends
+- (TODO) Receive notification when timer ends (app)
 
 ## Changelog
 - v1.0 - Release
