@@ -12,6 +12,8 @@ more_thick=290ms;
 more_liquid=97ms;
 */
 
+#include <EEPROM.h>
+
 // buttons ->
 #define EB_NO_FOR
 #define EB_NO_CALLBACK
@@ -110,10 +112,15 @@ bool allow_drop=false;
 uint16_t rebuild_delay_time=500;
 uint8_t curr_action=1; //1-main (sand); 2-timer set; 3-brightness set;
 int8_t mode_select_tmp=2;
-int8_t minute=0;
-int8_t second=10;
-int16_t active_corrector=0;
-int8_t brightness;
+//int16_t active_corrector=0;
+
+struct 
+{
+  int8_t minute=0;
+  int8_t second=10;
+
+  int8_t brightness;
+} ee_data;
 // <- variables
 
 
@@ -214,11 +221,32 @@ void redraw(int8_t area=10)
 }
 // <- functions 
 
+
+#define EEPROM_KEY 3
 void setup() 
 {
+  EEPROM.begin(10);
+  if (EEPROM[0]!=EEPROM_KEY)
+  {
+    for (int id = 1; id < 8; id++)
+    {
+      EEPROM.put(id, 0);
+    }
+    EEPROM[0] = EEPROM_KEY;
+    EEPROM.commit();
+  }
+  EEPROM.get(2, ee_data);
+
   os_timer_disarm(&drop_timer);
   os_timer_setfn(&drop_timer, (os_timer_func_t *)drop_timer_isr, NULL);
   os_timer_arm(&drop_timer, 1000, true);
+
+  //buttons settings ->
+  up.setHoldTimeout(500);
+  down.setHoldTimeout(500);
+  up.setStepTimeout(100);
+  down.setStepTimeout(100);
+  //<- buttons settings
 
 
   Serial.begin(115200);
@@ -232,7 +260,7 @@ void setup()
   mpu.setZ({0, 1});
 
   mtrx.begin();
-  mtrx.setBright(1);
+  mtrx.setBright(ee_data.brightness);
   while(false) //debug-check print_num function; true to enable 
   {
     Serial.println("grgr");
@@ -261,16 +289,24 @@ void setup()
   attachInterrupt(12, down_isr, FALLING);
 
   // timer set ->
-  uint16_t drop_timer_value=((minute*60)+second)*1000/61;
+  uint16_t to_seconds=(ee_data.minute*60)+ee_data.second; //total timer's seconds 
+  if(to_seconds<=15) sand_type="water";
+  else if(to_seconds>15 && to_seconds<=40) sand_type="more_liquid";
+  else if(to_seconds>40 && to_seconds<=120) sand_type="normal";
+  else if(to_seconds>120) sand_type="more_thick";
+
+
+  uint16_t drop_timer_value= to_seconds*1000/61;
+
   os_timer_disarm(&drop_timer);
   os_timer_arm(&drop_timer, drop_timer_value, true);
-  sand_type="more_liquid";
   // <- timer set
 }
 
 void loop() 
 {
   loop_timer=millis();
+  if(((ee_data.minute*60)+ee_data.second)<=0) ee_data.second=1;
   if(Serial.available() && 1==2) //debug-print matrix, set angle manually; to use, set 1==1 in condition; to set angle manually in angle_processing set 1==2 in condition
   {
     char inp=Serial.read();
@@ -300,55 +336,121 @@ void loop()
   up.tick();
   down.tick();
   both.tick(up, down);
+
   if(up.click())
   {
     if(curr_action==0) //choose setting
     {
       mode_select_tmp++;
-      if(mode_select_tmp>4) mode_select_tmp=2;
+      if(mode_select_tmp>3) mode_select_tmp=2;
     }
     else if(curr_action==2) //set timer
     {
-      if(second>=59 && minute>=99) {;}
-      else second++;
+      if(ee_data.second>=59 && ee_data.minute>=99) {;}
+      else ee_data.second++;
 
-      if(second>59) 
+      if(ee_data.second>59) 
       {
-        minute++;
-        second=0;
+        ee_data.minute++;
+        ee_data.second=0;
       }
     }
-    else if(curr_action==3) 
+    else if(curr_action==3) //change brightness 
     {
-      brightness++;
-      if(brightness>15) brightness=0;
+      ee_data.brightness++;
+      if(ee_data.brightness>15) ee_data.brightness=0;
     }
     else if(curr_action==1) curr_action=0;
   }
+  if(up.step(0))
+  {
+    if(curr_action==2) //set timer
+    {
+      if(ee_data.second>=49 && ee_data.minute>=99) 
+      {
+        if(ee_data.second>=59 && ee_data.minute>=99) {;}
+        else ee_data.second++;
+      }
+      else ee_data.second+=10;
+      if(ee_data.second>59) 
+      {
+        ee_data.minute++;
+        ee_data.second-=59;
+      }
+    }
+    else if(curr_action==3) //change brightness
+    {
+      ee_data.brightness+=1;
+      if(ee_data.brightness<0) ee_data.brightness=15;
+    }
+  }
+  if(up.step(1))
+  {
+    if(curr_action==2) //set timer
+    {
+      ee_data.minute+=1;
+      if(ee_data.minute>99) ee_data.minute=99;
+    }
+  }
+
+
+
   if(down.click())
   {
     if(curr_action==0) //choose setting
     {
       mode_select_tmp--;
-      if(mode_select_tmp<2) mode_select_tmp=4;
+      if(mode_select_tmp<2) mode_select_tmp=3;
     }
     else if(curr_action==2) //set timer
     {
-      if(second<=0 && minute<=0) {;}
-      else second--;
-      if(second<0) 
+      if(ee_data.second<=0 && ee_data.minute<=0) {;}
+      else ee_data.second--;
+      if(ee_data.second<0) 
       {
-        minute--;
-        second=59;
+        ee_data.minute--;
+        ee_data.second=59;
       }
     }
-    else if(curr_action==3) 
+    else if(curr_action==3) //change brightness
     {
-      brightness--;
-      if(brightness<0) brightness=15;
+      ee_data.brightness--;
+      if(ee_data.brightness<0) ee_data.brightness=15;
     }
     else if(curr_action==1) curr_action=0;
   }
+  if(down.step(0))
+  {
+    if(curr_action==2) //set timer
+    {
+      if(ee_data.second<=10 && ee_data.minute<=0) 
+      {
+        if(ee_data.second<=0 && ee_data.minute<=0) {;}
+        else ee_data.second--;
+      }
+      else ee_data.second-=10;
+      if(ee_data.second<0) 
+      {
+        ee_data.minute--;
+        ee_data.second=59;
+      }
+    }
+    else if(curr_action==3) //change brightness
+    {
+      ee_data.brightness-=1;
+      if(ee_data.brightness<0) ee_data.brightness=15;
+    }
+  }
+  if(down.step(1))
+  {
+    if(curr_action==2) //set timer
+    {
+      ee_data.minute-=1;
+      if(ee_data.minute<0) ee_data.minute=0;
+    }
+  }
+
+
 
   if(both.click())
   {
@@ -359,7 +461,7 @@ void loop()
     }
     else if(curr_action==2)
     {
-      uint16_t to_seconds=(minute*60)+second; //total timer's seconds 
+      uint16_t to_seconds=(ee_data.minute*60)+ee_data.second; //total timer's seconds 
       if(to_seconds<=15) sand_type="water";
       else if(to_seconds>15 && to_seconds<=40) sand_type="more_liquid";
       else if(to_seconds>40 && to_seconds<=120) sand_type="normal";
@@ -376,6 +478,9 @@ void loop()
     }
     else
     {
+      EEPROM.put(2, ee_data);
+      EEPROM.commit();
+
       curr_action=1;
       mode_select_tmp=2;
     }
@@ -432,18 +537,18 @@ void loop()
     }
     else if(curr_action==2) //set timer
     {
-      print_num(minute, 1); //number, matrix id
-      print_num(second, 2);
+      print_num(ee_data.minute, 1); //number, matrix id
+      print_num(ee_data.second, 2);
 
-      Serial.print(minute);
+      Serial.print(ee_data.minute);
       Serial.print(':');
-      Serial.println(second);
+      Serial.println(ee_data.second);
     }
     else if(curr_action==3) //set brightness
     {
-      print_num(brightness+1, 1); //number, matrix id
+      print_num(ee_data.brightness+1, 1); //number, matrix id
 
-      mtrx.setBright(brightness);
+      mtrx.setBright(ee_data.brightness);
       for(uint8_t x=9; x<=16; x++)
       {
         for(uint8_t y=9; y<=16; y++)
