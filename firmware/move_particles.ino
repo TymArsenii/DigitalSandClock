@@ -1,23 +1,30 @@
 void move_particles()
 {
   // ============================================================== drop timers ==============================================================>
-  allow_drop=false;
-  if(millis()-drop_timer>=10)
-  {
-    drop_timer=millis();
-    allow_drop=true;
+  
 
-    if(angle>=180 && angle<=360)
-    {
-      if(matrix_arr[8-1][8-1]==2) matrix_arr[8-1][8-1]=0;
-      if(matrix_arr[9-1][9-1]==2) matrix_arr[9-1][9-1]=0;
-    }
-    if(angle>=0 && angle<180)
-    {
-      if(matrix_arr[8-1][8-1]==2) matrix_arr[8-1][8-1]=0;
-      if(matrix_arr[9-1][9-1]==2) matrix_arr[9-1][9-1]=0;
-    }
-  }
+  // loop_timer:
+  /*
+  water=13ms;
+  normal=140ms;
+  more_thick=300ms;
+  more_liquid=100ms;
+  */
+/*
+  float time_addend;
+  
+
+  if(sand_type=="water") time_addend=(13*61)/1000;
+  else if(sand_type=="normal") time_addend=4;
+  else if(sand_type=="more_liquid") time_addend=(100*61)/1000;
+  else if(sand_type=="more_thick") time_addend=((300*61)-9000)/1000;
+  
+  //time_addend+=1;
+  //Serial.println(time_addend);
+
+  float drop_timer_value=(float)(((minute*60)+second-time_addend)*1000/61);
+  Serial.println(drop_timer_value);
+*/
   if(!allow_drop)
   {
     if(angle>=180 && angle<=360)
@@ -457,4 +464,6 @@ void move_particles()
     } //for
   } //else if(angle>90 && angle<=180)
   // <============================================================== moving!!! that WORKS!!! ==============================================================
+
+  allow_drop=false;
 }
