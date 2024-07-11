@@ -21,8 +21,8 @@ Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_
 - Angle reaction
 - Realistic sprinkling
 - **Amazing look :-)**
-- (TODO) Set timer with buttons
-- (TODO) Set brightness with buttons
+- Set timer with buttons
+- Set brightness with buttons
 - (TODO) Beeping sound when timer ends
 - (TODO) Set timer from app
 - (TODO) Receive notification when timer ends (app)
