@@ -13,8 +13,23 @@ For best accuracy hardware timer is used.
 
 <br><br>
 The device itself is 2x 8x8 matrixes (MAX7219 modules) positioned diagonaly. Everything except electronics and screws is 3D printed. 
+<br><br>
+## How to use 
+Slide the power switch to turn it on, you'll see the timer started with your last period (the default is 10sec). 
 
+Click on both buttons - reset sand position (it will appear in the top position)
+
+Settings:
+- Timer's time (1)
+- Brightness (2)
+
+To enter settings "choose settings" menu - press any button. You'll see letter 's' and a number 1 or 2. 1 - timer's time; 2 - brightness. To enter setting, you chose, press both buttons.
+
+Timer's time (1): minutes, seconds. You can change values with clicks or hold needed button to do it faster. If you do click-hold (fast) it will control directly minutes (without touching the seconds). Press both buttons to return to sand. 
+
+Brightness (2): brightness value (1-16). You can change values with clicks or hold needed button to do it faster. Press both buttons to return to sand.
 <br> <br>
+## Web
 Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_clock.html">here</a> (doesn't have delays to control the density on e-sand. Operates with max speed. In some cases may blink. In final device all the problems were fixed)
 
 ## Functionalities
