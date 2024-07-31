@@ -22,12 +22,15 @@ Click on both buttons - reset sand position (it will appear in the top position)
 Settings:
 - Timer's time (1)
 - Brightness (2)
+- Angle auto (3)
 
 To enter settings "choose settings" menu - press any button. You'll see letter 's' and a number 1 or 2. 1 - timer's time; 2 - brightness. To enter setting, you chose, press both buttons.
 
 Timer's time (1): minutes, seconds. You can change values with clicks or hold needed button to do it faster. If you do click-hold (fast) it will control directly minutes (without touching the seconds). Press both buttons to return to sand. 
 
 Brightness (2): brightness value (1-16). You can change values with clicks or hold needed button to do it faster. Press both buttons to return to sand.
+
+Angle auto (3): Automaticaly set angle just to look good (On/Off). When enabled hourglass will ignore real angle and generate a random one.  
 <br> <br>
 ## Web
 Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_clock.html">here</a> (doesn't have delays to control the density on e-sand. Operates with max speed. In some cases may blink. In final device all the problems were fixed)
@@ -38,9 +41,10 @@ Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_
 - **Amazing look :-)**
 - Set timer with buttons
 - Set brightness with buttons
-- Saving data to eeprom (timer's time; brightness)
+- Saving data to eeprom (all the settings)
 - (TODO) Beeping sound when timer ends
-- (TODO) Set timer from app
+- (TODO) Set timer from app (PWA)
+- (TODO) Make any changes from app
 - (TODO) Receive notification when timer ends (app)
 
 ## Changelog
