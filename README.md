@@ -30,7 +30,7 @@ Timer's time (1): minutes, seconds. You can change values with clicks or hold ne
 
 Brightness (2): brightness value (1-16). You can change values with clicks or hold needed button to do it faster. Press both buttons to return to sand.
 
-Angle auto (3): Automaticaly set angle just to look good (On/Off). When enabled hourglass will ignore real angle and generate a random one.  
+Angle auto (3): Automaticaly set angle, just to look good (On/Off). When enabled, hourglass will ignore real angle and generate a random one. Used to move an static position, to show it's posibilities and coolness.
 <br> <br>
 ## Web
 Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_clock.html">here</a> (doesn't have delays to control the density on e-sand. Operates with max speed. In some cases may blink. In final device all the problems were fixed)
