@@ -1,12 +1,11 @@
 # Digital Sand Clock
 **Stunning** sand sprinkling thant reacts on an angle (0-360). Follows real physic's laws of a gravity, friction. <br>
-There are 4 modes, which are density of e-sand: more_thick; normal; more liquid; water (really fast moving like water). They are changed automatically:
+There are 4 modes, which are density of e-sand: normal; more liquid; water (really fast moving like water). They are changed automatically:
 ```cpp
 uint16_t to_seconds=(minute*60)+second; //total timer's seconds 
 if(to_seconds<=15) sand_type="water";
 else if(to_seconds>15 && to_seconds<=40) sand_type="more_liquid";
-else if(to_seconds>40 && to_seconds<=120) sand_type="normal";
-else if(to_seconds>120) sand_type="more_thick";
+else if(to_seconds>40) sand_type="normal";
 ```
 <br>
 For best accuracy hardware timer is used.
