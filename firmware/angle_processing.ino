@@ -8,11 +8,15 @@ void angle_pocessing()
     
     if(1==1) //1==2 for angle manually
     {
-      int angle_tmp=mpu.getAngle()+45;
-      if(angle_tmp>=0 || 1==1) angle=mpu.getAngle()+45;
+      if(ee_data.angle_auto && curr_action==1) {}
+      else
+      {
+        int angle_tmp=mpu.getAngle()+45;
+        if(angle_tmp>=0 || 1==1) angle=mpu.getAngle()+45;
 
-      if (angle<0) angle+=360;
-      if (angle>=360) angle-=360;
+        if (angle<0) angle+=360;
+        if (angle>=360) angle-=360;
+      }
     }
 
     if(y_angle>=150)
@@ -29,9 +33,11 @@ void angle_pocessing()
       else if(sand_type=="more_liquid") rebuild_delay_time=350;
       else if(sand_type=="more_thick") rebuild_delay_time=1100;
     }
+
+    
     
     //Serial.print("angle: ");
-    //Serial.println(prd);
-    Serial.println(angle);
+    //if(view_log) Serial.println(prd);
+    //Serial.println(angle);
   }
 }
