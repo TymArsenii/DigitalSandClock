@@ -111,7 +111,7 @@ static const uint8_t font3x5_rotated[][3] PROGMEM =
 
 void print_num(uint8_t num, uint8_t matrix_id) // matrix_id 1-top; 2-bottom 
 {
-  Serial.print("!   ");
+  if(view_log) Serial.print("!   ");
   uint8_t first_digit=255;
   uint8_t second_digit=255;
   if(num>=10 && num<=99)
@@ -131,11 +131,11 @@ void print_num(uint8_t num, uint8_t matrix_id) // matrix_id 1-top; 2-bottom
   }
   
   /*     debug
-  Serial.print(num);
-  Serial.print(" ; ");
-  Serial.print(first_digit);
-  Serial.print(" : ");
-  Serial.println(second_digit);
+  if(view_log) Serial.print(num);
+  if(view_log) Serial.print(" ; ");
+  if(view_log) Serial.print(first_digit);
+  if(view_log) Serial.print(" : ");
+  if(view_log) Serial.println(second_digit);
   */
 
   if(first_digit!=255 && second_digit!=255)
