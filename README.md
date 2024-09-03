@@ -41,9 +41,9 @@ Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_
 - Set timer with buttons
 - Set brightness with buttons
 - Saving data to eeprom (all the settings)
-- (TODO) Beeping sound when timer ends
-- (TODO) Set timer from app (PWA)
-- (TODO) Make any changes from app
+- Beeping sound when timer ends
+- Set timer from app (PWA)
+- Make any changes from app
 - (TODO) Receive notification when timer ends (app)
 
 ## Changelog
