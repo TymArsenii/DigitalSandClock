@@ -22,14 +22,22 @@ Settings:
 - Timer's time (1)
 - Brightness (2)
 - Angle auto (3)
-
-To enter settings "choose settings" menu - press any button. You'll see letter 's' and a number 1 or 2. 1 - timer's time; 2 - brightness. To enter setting, you chose, press both buttons.
+- Beep (4)
+- AP/STA mode (5)
+  
+To enter settings "choose settings" menu - press any button. You'll see letter 's' and a number 1 or 2. 1 - timer's time; 2 - brightness... To enter setting, you chose, press both buttons.
 
 Timer's time (1): minutes, seconds. You can change values with clicks or hold needed button to do it faster. If you do click-hold (fast) it will control directly minutes (without touching the seconds). Press both buttons to return to sand. 
 
 Brightness (2): brightness value (1-16). You can change values with clicks or hold needed button to do it faster. Press both buttons to return to sand.
 
 Angle auto (3): Automaticaly set angle, just to look good (On/Off). When enabled, hourglass will ignore real angle and generate a random one. Used to move an static position, to show it's posibilities and coolness.
+
+Beep (4): Automaticaly set angle, just to look good (On/Off). When enabled, hourglass will ignore real angle and generate a random one. Used to move an static position, to show it's posibilities and coolness.
+
+AP/STA mode (5): Work as an access point or connect to Wi-Fi network (On/Off). When enabled, sand clock will open an access point. Connect to it, go to 192.168.6.9 and have the dame control panel, as when connecting directly to Wi-Fi.
+  When in 5th setting press and hold any button to generate access point to enter your Wi-Fi credentials.
+  
 <br> <br>
 ## Web
 Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_clock.html">here</a> (doesn't have delays to control the density on e-sand. Operates with max speed. In some cases may blink. In final device all the problems were fixed)
