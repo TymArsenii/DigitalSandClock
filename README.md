@@ -16,7 +16,7 @@ The device itself is 2x 8x8 matrixes (MAX7219 modules) positioned diagonaly. Eve
 ## How to use 
 Slide the power switch to turn it on, you'll see the timer started with your last period (the default is 10sec). 
 
-Click on both buttons - reset sand position (it will appear in top)
+Click on both buttons - reset sand position (it will appear on top)
 
 Settings:
 - Timer's time (1)
