@@ -37,7 +37,7 @@ Beep (4): Automaticaly set angle, just to look good (On/Off). When enabled, hour
 
 AP/STA mode (5): Work as an access point or connect to Wi-Fi network (On/Off). When enabled, sand clock will open an access point. Connect to it, go to 192.168.6.9 and have the dame control panel, as when connecting directly to Wi-Fi.
   
-     When in 5th setting press and hold any button to generate access point to enter your Wi-Fi credentials.
+&nbsp; &nbsp; When in 5th setting press and hold any button to generate access point to enter your Wi-Fi credentials.
   
 <br> <br>
 ## Web
