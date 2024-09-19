@@ -36,6 +36,7 @@ Angle auto (3): Automaticaly set angle, just to look good (On/Off). When enabled
 Beep (4): Automaticaly set angle, just to look good (On/Off). When enabled, hourglass will ignore real angle and generate a random one. Used to move an static position, to show it's posibilities and coolness.
 
 AP/STA mode (5): Work as an access point or connect to Wi-Fi network (On/Off). When enabled, sand clock will open an access point. Connect to it, go to 192.168.6.9 and have the dame control panel, as when connecting directly to Wi-Fi.
+  
   When in 5th setting press and hold any button to generate access point to enter your Wi-Fi credentials.
   
 <br> <br>
