@@ -16,6 +16,9 @@ void angle_pocessing()
 
         if (angle<0) angle+=360;
         if (angle>=360) angle-=360;
+
+        angle+=180;
+        if(angle>360) angle=angle-360;
       }
     }
 

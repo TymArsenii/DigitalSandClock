@@ -8,21 +8,19 @@ Ticker ticker;
 
 String sand_type="more_liquid"; // normal; more_liquid; more_thick; water 🤪 ;;; changes automatically
 
-#include <GyverHTTP.h>
 #include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
-#include <WiFiClientSecure.h>
-#include <WiFiClientSecureBearSSL.h>
 #include <GSON.h>
+#include <EEPROM.h>
 #include "DigiSand-portal.h"
+#include <PubSubClient.h>
 
-BearSSL::WiFiClientSecure client;
-ghttp::Client http(client, "exch.com.ua", 443);
+const char *mqtt_server="test.mosquitto.org";
+
+WiFiClient espClient;
+PubSubClient client(espClient);
 
 #define SSID "i20"
 #define PASS "yanatarsnazsof5"
-
-#include <EEPROM.h>
 
 // buttons ->
 #define EB_NO_FOR
@@ -134,6 +132,7 @@ static const uint8_t letters[][5] PROGMEM =
   uint32_t wifi_freq_timer;
   uint32_t beep_melody_timer;
   uint32_t beep_stop_timer;
+  uint32_t mqtt_reconnect_timer;
   // <- timers
 
 int16_t angle=45;
@@ -149,6 +148,7 @@ bool wifi_connected;
 bool beeping;
 uint8_t beep_reset;
 bool removed=false; //kostyl
+bool led_off=false;
 //int16_t active_corrector=0;
 
 struct 
@@ -164,6 +164,12 @@ struct
 
   bool ap_mode=false; //true - ap; false - local network
 } ee_data;
+
+struct
+{
+  char ssid[32]="";
+  char pass[64]="";
+} wifi_credentials;
 // <- variables
 
 
@@ -238,7 +244,7 @@ void redraw(int8_t area=10)
     if(forse_lightup[4]) set_dot(8-1, 8-1, 1);
   }
 
-  mtrx.update();
+  if(!led_off) mtrx.update();
 }
 
 void drop_timer_isr() 
@@ -331,13 +337,17 @@ void beep_radar()
 // <- functions 
 
 
-#define EEPROM_KEY 3
+#define EEPROM_KEY 2
 void setup() 
 {
-  EEPROM.begin(10);
+  Serial.begin(115200);
+  Serial.setTimeout(5);
+
+
+  EEPROM.begin(200);
   if (EEPROM[0]!=EEPROM_KEY)
   {
-    for (int id = 1; id < 8; id++)
+    for (int id = 1; id < 80; id++)
     {
       EEPROM.put(id, 0);
     }
@@ -345,6 +355,14 @@ void setup()
     EEPROM.commit();
   }
   EEPROM.get(2, ee_data);
+
+  EEPROM.get(15, wifi_credentials);
+
+  Serial.println();
+  Serial.print("SSID: ");
+  Serial.println(wifi_credentials.ssid);
+  Serial.print("pass: ");
+  Serial.println(wifi_credentials.pass);
 
   //os_timer_disarm(&drop_timer);
   //os_timer_setfn(&drop_timer, (os_timer_func_t *)drop_timer_isr, NULL);
@@ -358,10 +376,6 @@ void setup()
   up.setStepTimeout(100);
   down.setStepTimeout(100);
   //<- buttons settings
-
-
-  Serial.begin(115200);
-  Serial.setTimeout(5);
 
   Wire.begin(13, 5);
 
@@ -480,11 +494,11 @@ void setup()
   }
   if(!ee_data.ap_mode)
   {
-    portal_start();
+    //portal_start();
     WiFi.softAPdisconnect();
     WiFi.disconnect();
     WiFi.mode(WIFI_STA);
-    WiFi.begin("i20", "yanatarsnazsof5");
+    WiFi.begin(wifi_credentials.ssid, wifi_credentials.pass);
   
     int retries=0;
     while (WiFi.status()!=WL_CONNECTED && retries<30) 
@@ -493,8 +507,12 @@ void setup()
       retries++;
     }
   }
+
+  client.setServer(mqtt_server, 1883);
+  client.setCallback(callback);
   
   Serial.println(WiFi.localIP());
+  Serial.println("start");
 }
 
 void loop() 
@@ -502,12 +520,12 @@ void loop()
   loop_timer=millis();
   //Serial.println(WiFi.localIP());
   //http.tick();
-  //if(curr_action==1) wifi_stuff();
+  wifi_stuff();
   //yield();
 
   if(portal_tick())
   {
-    //Serial.println(portal_status());
+    Serial.println(portal_status());
     if(portal_status()==SP_SUBMIT)
     {
       Serial.print("timer:");
@@ -522,12 +540,16 @@ void loop()
 
       sscanf(portalCfg.timer, "%2hhd:%2hhd", &ee_data.minute, &ee_data.second);
       ee_data.brightness=atoi(portalCfg.brightness);
+      if(ee_data.brightness==0) led_off=true;
+      else led_off=false;
+
+      ee_data.brightness=map(ee_data.brightness, 0, 16, 1, 16);
       ee_data.angle_auto=atoi(portalCfg.angle_auto);
       ee_data.beep=atoi(portalCfg.beep);
 
 
       //apply ->
-      mtrx.setBright(ee_data.brightness-1);
+      if(!led_off) mtrx.setBright(ee_data.brightness-1);
 
       uint16_t to_seconds=(ee_data.minute*60)+ee_data.second; //total timer's seconds 
       if(to_seconds<=15) sand_type="water";
@@ -542,6 +564,54 @@ void loop()
 
 
       portal_reset();
+    }
+    else if(portal_status()==SP_SUBMIT_LOGIN)
+    {
+      Serial.print("SSID:");
+      Serial.println(portalCfg.ssid);
+      Serial.print("pass:");
+      Serial.println(portalCfg.pass);
+      Serial.println();
+
+      strcpy(wifi_credentials.ssid, portalCfg.ssid);
+      strcpy(wifi_credentials.pass, portalCfg.pass);
+
+
+      Serial.print("wifi settings:  ");
+      Serial.print(wifi_credentials.ssid);
+      Serial.print(" : ");
+      Serial.print(wifi_credentials.pass);
+      Serial.println("  saving...  ");
+      EEPROM.put(15, wifi_credentials);
+      EEPROM.commit();
+      Serial.println("saved");
+
+      EEPROM.get(15, wifi_credentials);
+
+      Serial.println();
+      Serial.print("after SSID: ");
+      Serial.println(wifi_credentials.ssid);
+      Serial.print("after pass: ");
+      Serial.println(wifi_credentials.pass);
+
+      portal_reset();
+
+      ee_data.ap_mode=false;
+      if(!ee_data.ap_mode)
+      {
+        WiFi.softAPdisconnect();
+        WiFi.disconnect();
+        WiFi.mode(WIFI_STA);
+        WiFi.begin(wifi_credentials.ssid, wifi_credentials.pass);
+      
+        int retries=0;
+        while (WiFi.status()!=WL_CONNECTED && retries<20) 
+        {
+          delay(500);
+          retries++;
+        }
+      }
+      curr_action=1;
     }
   }
 
@@ -744,7 +814,29 @@ void loop()
     }
   }
 
+  if(up.hold())
+  {
+    if(curr_action==6)
+    {
+      wifi_connected=false;
+      ee_data.ap_mode=true;
+      login_portal_start();
 
+      Serial.println("login portal started");
+    } 
+  }
+
+  if(down.hold())
+  {
+    if(curr_action==6)
+    {
+      wifi_connected=false;
+      ee_data.ap_mode=true;
+      login_portal_start();
+
+      Serial.println("login portal started");
+    } 
+  }
 
   if(both.click())
   {
@@ -810,6 +902,7 @@ void loop()
       {
         if(ee_data.ap_mode)
         {
+          wifi_connected=false;
           portal_start();
         }
       } 
@@ -820,9 +913,9 @@ void loop()
           WiFi.softAPdisconnect();
           WiFi.disconnect();
           WiFi.mode(WIFI_STA);
-          WiFi.begin("i20", "yanatarsnazsof5");
+          WiFi.begin(wifi_credentials.ssid, wifi_credentials.pass);
         
-          int retries = 0;
+          int retries=0;
           while (WiFi.status()!=WL_CONNECTED && retries<20) 
           {
             delay(500);
@@ -839,6 +932,7 @@ void loop()
     }
     else
     {
+      if(curr_action==3) led_off=false;
       EEPROM.put(2, ee_data);
       EEPROM.commit();
       
@@ -974,6 +1068,20 @@ void loop()
     //Serial.println(curr_action);
 
     if(curr_action!=1) mtrx.update();
+    else 
+    {
+      if(led_off) 
+      {
+        for(int x=1; x<=16; x++)
+        {
+          for(int y=1; y<=16; y++)
+          {
+            set_dot(x-1, y-1, 0);
+          }
+        }
+        mtrx.update();
+      }
+    }
   }
   //Serial.println(millis()-loop_timer);
 }

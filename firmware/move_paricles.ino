@@ -495,7 +495,7 @@ void move_particles()
         if(millis()-angle_auto_timer>=angle_auto_period)
         {
           angle_auto_timer=millis();
-          angle_auto_period=random(1000, 6000);
+          angle_auto_period=random(1000, 4000);
           angle=auto_angle_values[random(2)];
         }
       }
@@ -526,7 +526,7 @@ void move_particles()
         if(millis()-angle_auto_timer>=angle_auto_period)
         {
           angle_auto_timer=millis();
-          angle_auto_period=random(1000, 6000);
+          angle_auto_period=random(1000, 4000);
           angle=auto_angle_values[random(2)];
         }
       }
