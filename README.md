@@ -59,6 +59,7 @@ Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_
 ## Changelog
 - v1.0 - Release
 - v1.1 - Major improvements, fixes
+- v1.2 - Full Wi-Fi capability, fixes
 
 
 <br><br>
