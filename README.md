@@ -35,7 +35,7 @@ Angle auto (3): Automaticaly set angle, just to look good (On/Off). When enabled
 
 Beep (4): Beeping sound, when timer ends (On/Off). When enabled, hourglass will beep, when all sand is in bottom position.
 
-AP/STA mode (5): Work as an access point or connect to Wi-Fi network (On/Off). When enabled, sand clock will open an access point. Connect to it, go to 192.168.6.9 and have the dame control panel, as when connecting directly to Wi-Fi.
+AP/STA mode (5): Work as an access point or connect to Wi-Fi network (On/Off). When enabled, sand clock will open an access point. Connect to it, go to 192.168.6.9 and have the same control panel, as when connecting directly to Wi-Fi.
   
 &nbsp; &nbsp; When in 5th setting press and hold any button to generate access point to enter your Wi-Fi credentials.
   
