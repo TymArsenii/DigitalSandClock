@@ -33,7 +33,7 @@ Brightness (2): brightness value (1-16). You can change values with clicks or ho
 
 Angle auto (3): Automaticaly set angle, just to look good (On/Off). When enabled, hourglass will ignore real angle and generate a random one. Used to move an static position, to show it's posibilities and coolness.
 
-Beep (4): Automaticaly set angle, just to look good (On/Off). When enabled, hourglass will ignore real angle and generate a random one. Used to move an static position, to show it's posibilities and coolness.
+Beep (4): Beeping sound, when timer ends (On/Off). When enabled, hourglass will beep, when all sand is in bottom position.
 
 AP/STA mode (5): Work as an access point or connect to Wi-Fi network (On/Off). When enabled, sand clock will open an access point. Connect to it, go to 192.168.6.9 and have the dame control panel, as when connecting directly to Wi-Fi.
   
@@ -43,16 +43,18 @@ AP/STA mode (5): Work as an access point or connect to Wi-Fi network (On/Off). W
 ## Web
 Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_clock.html">here</a> (doesn't have delays to control the density on e-sand. Operates with max speed. In some cases may blink. In final device all the problems were fixed)
 
-## Functionalities
+## Possibilities
 - Angle reaction
 - Realistic sprinkling
+- Adaptive sand density
 - **Amazing look :-)**
-- Set timer with buttons
-- Set brightness with buttons
-- Saving data to eeprom (all the settings)
-- Beeping sound when timer ends
-- Set timer from app (local webserver/AP mode)
-- Make all settings from app
+- Set timer
+- Change brightness brightness
+- Angle auto mode
+- Beeping sound when timer ends (optional)
+- Saving all the settings to eeprom (power independent memory)
+- Change any possible setting from app, local webserver, AP mode
+- Set SSID, password (AP mode)
 
 ## Changelog
 - v1.0 - Release
