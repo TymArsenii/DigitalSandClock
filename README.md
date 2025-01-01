@@ -41,7 +41,7 @@ AP/STA mode (5): Work as an access point or connect to Wi-Fi network (On/Off). W
   
 <br> <br>
 ## Web
-Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_clock.html">here</a> (doesn't have delays to control the density on e-sand. Operates with max speed. In some cases may blink. In final device all the problems were fixed)
+Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_clock.html">here</a> (doesn't have delays to control the density of sand. Operates with max speed. In some cases may blink. In final device all the problems were fixed)
 
 ## Possibilities
 - Angle reaction
