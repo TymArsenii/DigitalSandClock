@@ -55,11 +55,14 @@ Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_
 - Saving all the settings to eeprom (power independent memory)
 - Change any possible setting from app, local webserver, AP mode
 - Set SSID, password (AP mode)
+- Standby Clock (NTP server)
+- Full online expirience
 
 ## Changelog
 - v1.0 - Release
 - v1.1 - Major improvements, fixes
 - v1.2 - Full Wi-Fi capability, fixes
+- v1.3 - New app expirience, standby clock, fixes
 
 
 <br><br>
