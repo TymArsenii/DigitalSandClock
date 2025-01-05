@@ -55,7 +55,7 @@ const char SP_connect_page[] PROGMEM=R"rawliteral(
   <div class="slider-container">
     <div class="horizontal-slider">
       <label style="flex-direction: column !important; color:#007aff; font-size: 20px; font-weight:normal;" class="label_for_checkbox">Brightness</label>
-      <input type="range" id="brightness" style="width:100%;" min="0" max="16" step="1" style="display:inline-flex;" name="vertical-range" orient="vertical" placeholder="brightness">
+      <input type="range" id="brightness" style="width:100%;" min="-1" max="15" step="1" style="display:inline-flex;" name="vertical-range" orient="vertical" placeholder="brightness">
     </div>
   </div>
 
@@ -141,26 +141,7 @@ const char SP_connect_page[] PROGMEM=R"rawliteral(
     flex-direction: column;
     align-items: center;
   }
-
-  @media screen and (min-width: 500px)
-  {
-    .label_for_checkbox 
-    {
-      font-size: 25px !important;
-      font-weight:350 !important;
-    }
-    .main_button
-    {
-    	font-size:1.3rem !important;
-    	font-weight: 400 !important;
-    }
-    .timer
-    {
-    	scale:1.3 !important;
-    	margin: 4px !important;
-    }
-  }
-
+  
   .back 
   {
     background-color: #a2deae;
@@ -659,17 +640,6 @@ const char SP_login_page[] PROGMEM=R"rawliteral(
   .apple-switch input[type="checkbox"]
   {
     display: none;
-  }
-
-  .text_inp 
-  {
-    font-size: 20pt; 
-    padding: 8px; 
-    border: 2px solid #CCC; 
-    border-radius: 15px; 
-    width: 100%; 
-    box-sizing: border-box; 
-    margin-bottom: 8px;
   }
 
   .apple-switch .slider

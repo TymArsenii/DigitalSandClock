@@ -7,7 +7,7 @@ static const uint8_t font3x5[][3] PROGMEM =
   },
   { //1
     0b11111,
-    0b00000,
+    0b01000,
     0b00000,
   },
   { 
@@ -62,7 +62,7 @@ static const uint8_t font3x5_rotated[][3] PROGMEM =
   },
   { //1 rotated
     0b00000,
-    0b00000,
+    0b00010,
     0b11111,
   },
   { //2 rotated

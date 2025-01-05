@@ -19,6 +19,7 @@ void wifi_stuff()
     }
     else
     {
+      Serial.println("wifi disconnected");
       if (millis()-wifi_connection_timer>=15000) //30 sec before trying to connect
       {
         wifi_connection_timer=millis();
@@ -27,53 +28,56 @@ void wifi_stuff()
         wifi_check_timer=millis();
       }    
     } 
-  }
-  if(wifi_connected)
+  
+    if(wifi_connected)
     {
-      if(!client.connected() && !ee_data.ap_mode && WiFi.status()==WL_CONNECTED)
+      if(!mqtt.connected())
       {
+        Serial.println("MQTT fail. Reconnecting...");
         reconnect();
       }
-      client.loop();
-      if(millis()-wifi_request_timer>=1500 && client.connected())
+      mqtt.loop();
+      if(millis()-wifi_request_timer>=700 && mqtt.connected())
       {
         wifi_request_timer=millis();
         
-        //Text post_data="request=hey_you_give_me_the_data_a&device_id=1";
-        //Text headers="Content-Type: application/x-www-form-urlencoded\r\n";
-        //http.request("/e-sand_clock/digisand_control.php", "POST", headers, post_data);
-        //if(view_log) Serial.println("Request: Ars_top;");
-
-        
-
-        
+        char send_build[30]="device_id=1&status=online-ok";
+        mqtt.publish("digi_sand_local_Ars", send_build);
       }
+
+      
     }
   }
+}
 
-  void callback(char *topic, byte *message, unsigned int length)
+void callback(char *topic, byte *message, unsigned int length)
+{
+  Serial.print("Message arrived on topic: ");
+  Serial.print(topic);
+  Serial.print(". Message: ");
+  String message_tmp;
+
+  for(int i=0; i<length; i++)
   {
-    Serial.print("Message arrived on topic: ");
-    Serial.print(topic);
-    Serial.print(". Message: ");
-    String message_tmp;
+    Serial.print((char)message[i]);
+    message_tmp+=(char)message[i];
+  }
+  Serial.println();
 
-    for(int i=0; i<length; i++)
-    {
-      Serial.print((char)message[i]);
-      message_tmp+=(char)message[i];
-    }
-    Serial.println();
-
-    // Feel free to add more if statements to control more GPIOs with MQTT
-
-    // If a message is received on the topic esp32/output, you check if the message is either "on" or "off".
-    // Changes the output state according to the message
-    if(String(topic)=="ars-top-rx-digisand-esp-alc")
-    {
-      gson::Parser p(20);
+  if(String(topic)=="digi_sand_server_Ars")
+  {
+    gson::Parser p(20);
     if (p.parse(message_tmp))
     {
+      if(mqtt.connected() && WiFi.status()==WL_CONNECTED && wifi_connected)
+      {
+        char send_build[32]="device_id=1&status=reseaved";
+        mqtt.publish("digi_sand_local_Ars", send_build);
+      }
+
+      ee_data.mode=p["m"];
+      ee_data.time_zone=p["tz"];
+      time_client.setTimeOffset(3600*ee_data.time_zone);
       ee_data.brightness=p["br"];  
 
       if(p["a"]=="0") ee_data.angle_auto=false;
@@ -87,13 +91,10 @@ void wifi_stuff()
       ee_data.second=total_seconds%60;
 
       //apply ->
-      if (ee_data.brightness==0) led_off=true;
+      if (ee_data.brightness==-1) led_off=true;
       else led_off=false;
 
-      ee_data.brightness=map(ee_data.brightness, 0, 16, 1, 16);
-
-      ee_data.brightness=map(ee_data.brightness, 0, 16, 1, 16);
-      if(!led_off) mtrx.setBright(ee_data.brightness-1);
+      if(!led_off) mtrx.setBright(ee_data.brightness);
 
       uint16_t to_seconds=(ee_data.minute*60)+ee_data.second; //total timer's seconds 
       if(to_seconds<=15) sand_type="water";
@@ -111,22 +112,20 @@ void wifi_stuff()
 
 void reconnect()
 {
-  // Loop until we're reconnected
   if(millis()-mqtt_reconnect_timer>=5000 && !ee_data.ap_mode && WiFi.status()==WL_CONNECTED && wifi_connected)
   {
     mqtt_reconnect_timer=millis();
     Serial.print("Attempting MQTT connection...");
-    // Attempt to connect
-    if(client.connect("arstopout"))
+    if(mqtt.connect("digi_sand_local_Ars")) //send to
     {
       Serial.println("connected");
       // Subscribe
-      client.subscribe("ars-top-rx-digisand-esp-alc");
+      mqtt.subscribe("digi_sand_server_Ars"); //receive from
     }
     else
     {
       Serial.print("failed, rc=");
-      Serial.print(client.state());
+      Serial.print(mqtt.state());
       Serial.println(" try again in 5 seconds");
     }
   }

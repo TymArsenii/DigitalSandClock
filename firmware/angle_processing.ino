@@ -38,9 +38,14 @@ void angle_pocessing()
     }
 
     
-    
-    //Serial.print("angle: ");
-    //if(view_log) Serial.println(prd);
-    //Serial.println(angle);
+    if(Serial.available())
+    {
+      if(Serial.read()=='a')
+      {
+        Serial.print("angle: ");
+        //if(view_log) Serial.println(prd);
+        Serial.println(angle);
+      }
+    }
   }
 }

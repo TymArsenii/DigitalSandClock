@@ -6,23 +6,27 @@ extern "C"
 #include <Ticker.h>
 Ticker ticker;
 
-String sand_type="more_liquid"; // normal; more_liquid; more_thick; water 🤪 ;;; changes automatically
+String sand_type="more_liquid"; //normal; more_liquid; more_thick; water 🤪 ;;; changes automatically
 
 #include <ESP8266WiFi.h>
 #include <GSON.h>
 #include <EEPROM.h>
 #include "DigiSand-portal.h"
 #include <PubSubClient.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 
 const char *mqtt_server="test.mosquitto.org";
 
 WiFiClient espClient;
-PubSubClient client(espClient);
+PubSubClient mqtt(espClient);
+WiFiUDP ntp_udp;
+NTPClient time_client(ntp_udp, "pool.ntp.org", 0, 60000);
 
 #define SSID "i20"
 #define PASS "yanatarsnazsof5"
 
-// buttons ->
+//buttons ->
 #define EB_NO_FOR
 #define EB_NO_CALLBACK
 #define EB_NO_COUNTER
@@ -41,22 +45,22 @@ IRAM_ATTR void down_isr()
 {
   down.pressISR();
 }
-// <- buttons
+//<- buttons
 
 #include "mini6050.h"
 Mini6050 mpu;
 
 
-// matrix ->
+//matrix ->
 #include <GyverMAX7219.h>
-MAX7219<2, 1, 2, 4, 0> mtrx; // ROWS COLS CS DT CLK
+MAX7219<2, 1, 2, 4, 0> mtrx; //ROWS COLS CS DT CLK
 
 
 
 int8_t matrix_width=16;
 int8_t matrix_height=16;
 
-int8_t matrix_arr[16][16] = // 1 - particle; 2 - obstacle; 0 - empty
+int8_t matrix_arr[16][16]= //1 - particle; 2 - obstacle; 0 - empty
 {
   {0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2}, 
   {0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2}, 
@@ -87,7 +91,7 @@ int8_t matrix_arr[16][16] = // 1 - particle; 2 - obstacle; 0 - empty
 
 bool forse_lightup[5]={0,0,0,0,0};
 
-static const uint8_t letters[][5] PROGMEM = 
+static const uint8_t letters[][5] PROGMEM= 
 {
   { //s
     0b00000,
@@ -104,16 +108,16 @@ static const uint8_t letters[][5] PROGMEM =
     0b11101,
   },
 };
-// <- matrix
+//<- matrix
 
 
 
-// variables ->
+//variables ->
   bool view_log=false;
 
   
 
-  // timers ->
+  //timers ->
   os_timer_t drop_timer;
 
   uint32_t angle_update_timer;
@@ -133,7 +137,8 @@ static const uint8_t letters[][5] PROGMEM =
   uint32_t beep_melody_timer;
   uint32_t beep_stop_timer;
   uint32_t mqtt_reconnect_timer;
-  // <- timers
+  uint32_t wifi_enter_timer;
+  //<- timers
 
 int16_t angle=45;
 int16_t y_angle=15;
@@ -163,6 +168,9 @@ struct
   bool beep=false;
 
   bool ap_mode=false; //true - ap; false - local network
+
+  uint8_t mode=1;
+  int8_t  time_zone=3;
 } ee_data;
 
 struct
@@ -170,10 +178,10 @@ struct
   char ssid[32]="";
   char pass[64]="";
 } wifi_credentials;
-// <- variables
+//<- variables
 
 
-// functions ->
+//functions ->
 void redraw(int8_t area=10)
 {
   if(area==10)
@@ -183,10 +191,7 @@ void redraw(int8_t area=10)
       for(uint8_t y=1; y<=16; y++)
       {
         if(matrix_arr[x-1][y-1]==2) continue;
-        else
-        {
-          set_dot(x-1, y-1, matrix_arr[x-1][y-1]);
-        }
+        else set_dot(x-1, y-1, matrix_arr[x-1][y-1]);
       }
     }
 
@@ -233,7 +238,7 @@ void redraw(int8_t area=10)
         if(matrix_arr[x-1][y-1]==2) continue;
         else
         {
-          set_dot(x-1, y-1, matrix_arr[x-1][y-1]);
+          if(matrix_arr[x-1][y-1]==1 || matrix_arr[x-1][y-1]==3) set_dot(x-1, y-1, 1);
         }
       }
     }
@@ -249,19 +254,27 @@ void redraw(int8_t area=10)
 
 void drop_timer_isr() 
 {
-  allow_drop=true;
-
-  if(angle>=180 && angle<=360)
+  if(!allow_drop)
   {
-    if(matrix_arr[8-1][8-1]==2) matrix_arr[8-1][8-1]=0;
-    if(matrix_arr[9-1][9-1]==2) matrix_arr[9-1][9-1]=0;
-  }
-  if(angle>=0 && angle<180)
-  {
-    if(matrix_arr[8-1][8-1]==2) matrix_arr[8-1][8-1]=0;
-    if(matrix_arr[9-1][9-1]==2) matrix_arr[9-1][9-1]=0;
-  }
+    allow_drop=true;
 
+    if(angle>=90 && angle<=270)
+    {
+      if(matrix_arr[8-1][8-1]==2) matrix_arr[8-1][8-1]=0;
+      if(matrix_arr[9-1][9-1]==2) matrix_arr[9-1][9-1]=0;
+
+      if(matrix_arr[8-1][8-1]==3) matrix_arr[8-1][8-1]=1;
+      if(matrix_arr[9-1][9-1]==3) matrix_arr[9-1][9-1]=1;
+    }
+    else
+    {
+      if(matrix_arr[8-1][8-1]==2) matrix_arr[8-1][8-1]=0;
+      if(matrix_arr[9-1][9-1]==2) matrix_arr[9-1][9-1]=0;
+
+      if(matrix_arr[8-1][8-1]==3) matrix_arr[8-1][8-1]=1;
+      if(matrix_arr[9-1][9-1]==3) matrix_arr[9-1][9-1]=1;
+    }
+  }
   //Serial.println("|");
 }
 
@@ -334,7 +347,7 @@ void beep_radar()
   }
   else digitalWrite(15, 0);
 }
-// <- functions 
+//<- functions 
 
 
 #define EEPROM_KEY 2
@@ -413,7 +426,7 @@ void setup()
   attachInterrupt(14, up_isr, FALLING);
   attachInterrupt(12, down_isr, FALLING);
 
-  // timer set ->
+  //timer set ->
   uint16_t to_seconds=(ee_data.minute*60)+ee_data.second; //total timer's seconds 
   if(to_seconds<=15) sand_type="water";
   else if(to_seconds>15 && to_seconds<=40) sand_type="more_liquid";
@@ -425,7 +438,7 @@ void setup()
 
   ticker.detach();
   ticker.attach_ms(drop_timer_value, drop_timer_isr);
-  // <- timer set
+  //<- timer set
 
   randomSeed(ESP.getVcc());
 
@@ -487,10 +500,29 @@ void setup()
       wifi_request_timer=millis();
     }
   );*/
+  portal_start();
+  delay(100);
+
+  while (millis()-wifi_enter_timer<=500) 
+  {
+    up.tick();
+    down.tick();
+    both.tick(up, down);
+
+    if(up.press() || down.press())
+    {
+      wifi_connected=false;
+      ee_data.ap_mode=true;
+      login_portal_start();
+
+      Serial.println("login portal started");
+    }
+  }
+
 
   if(ee_data.ap_mode)
   {
-    portal_start();
+    //portal_start();
   }
   if(!ee_data.ap_mode)
   {
@@ -505,14 +537,27 @@ void setup()
     {
       delay(500);
       retries++;
+      Serial.print(".");
     }
+    Serial.println();
   }
 
-  client.setServer(mqtt_server, 1883);
-  client.setCallback(callback);
+  mqtt.setServer(mqtt_server, 1883);
+  mqtt.setCallback(callback);
+  reconnect();
+
+  Serial.print("time_zone=");
+  Serial.print(ee_data.time_zone);
+  Serial.print(", ");
+  Serial.println(3600*ee_data.time_zone);
+  time_client.begin();
+  time_client.setTimeOffset(3600*ee_data.time_zone);
   
   Serial.println(WiFi.localIP());
   Serial.println("start");
+
+  if(angle>135 && angle<=325) reset_sand_down();
+  else reset_sand_up();
 }
 
 void loop() 
@@ -522,6 +567,16 @@ void loop()
   //http.tick();
   wifi_stuff();
   //yield();
+
+  if(Serial.available())
+  {
+    if(Serial.read()=='m')
+    {
+      Serial.print("mode: ");
+      //if(view_log) Serial.println(prd);
+      Serial.println(ee_data.mode);
+    }
+  }
 
   if(portal_tick())
   {
@@ -540,16 +595,15 @@ void loop()
 
       sscanf(portalCfg.timer, "%2hhd:%2hhd", &ee_data.minute, &ee_data.second);
       ee_data.brightness=atoi(portalCfg.brightness);
-      if(ee_data.brightness==0) led_off=true;
+      if(ee_data.brightness==-1) led_off=true;
       else led_off=false;
 
-      ee_data.brightness=map(ee_data.brightness, 0, 16, 1, 16);
       ee_data.angle_auto=atoi(portalCfg.angle_auto);
       ee_data.beep=atoi(portalCfg.beep);
 
 
       //apply ->
-      if(!led_off) mtrx.setBright(ee_data.brightness-1);
+      if(!led_off) mtrx.setBright(ee_data.brightness);
 
       uint16_t to_seconds=(ee_data.minute*60)+ee_data.second; //total timer's seconds 
       if(to_seconds<=15) sand_type="water";
@@ -560,7 +614,7 @@ void loop()
       uint16_t drop_timer_value= to_seconds*1000/61;
       ticker.detach();
       ticker.attach_ms(drop_timer_value, drop_timer_isr);
-      // <- apply
+      //<- apply
 
 
       portal_reset();
@@ -648,7 +702,7 @@ void loop()
     }
   }
 
-  // buttons processing ->
+  //buttons processing ->
   up.tick();
   down.tick();
   both.tick(up, down);
@@ -814,30 +868,6 @@ void loop()
     }
   }
 
-  if(up.hold())
-  {
-    if(curr_action==6)
-    {
-      wifi_connected=false;
-      ee_data.ap_mode=true;
-      login_portal_start();
-
-      Serial.println("login portal started");
-    } 
-  }
-
-  if(down.hold())
-  {
-    if(curr_action==6)
-    {
-      wifi_connected=false;
-      ee_data.ap_mode=true;
-      login_portal_start();
-
-      Serial.println("login portal started");
-    } 
-  }
-
   if(both.click())
   {
     if(curr_action>=2)
@@ -940,14 +970,14 @@ void loop()
       mode_select_tmp=2;
     }
   }
-  // <- buttons processing
+  //<- buttons processing
 
   if(millis()-angle_update_timer>=20) //angle request
   {
     angle_update_timer=millis();
     angle_pocessing();
 
-    if((angle>=115 && angle<=145) || (angle>=295 && angle<=338)) // KOSTYL!!!
+    /*if((angle>=115 && angle<=145) || (angle>=295 && angle<=338)) //KOSTYL!!!
     {
       if(!removed)
       {
@@ -987,6 +1017,7 @@ void loop()
         }
       }
     }
+    */
   }
   if(millis()-refresh_frame_timer>=60/1000) //60Hz
   {
@@ -995,8 +1026,12 @@ void loop()
 
     if(curr_action==1) //sand
     {
-      redraw();
-      move_particles();
+      if(ee_data.mode==1) 
+      {
+        redraw(); //has to be BEFORE move_particles();
+        move_particles();
+      }
+      else if(ee_data.mode==2) stand_clock_mode();
     }
     else if(curr_action==0) //choose setting
     { 
@@ -1067,7 +1102,7 @@ void loop()
     }
     //Serial.println(curr_action);
 
-    if(curr_action!=1) mtrx.update();
+    if(curr_action!=1 || ee_data.mode==2) mtrx.update();
     else 
     {
       if(led_off) 

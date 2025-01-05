@@ -28,14 +28,15 @@ void move_particles()
 */
   if(!allow_drop)
   {
-    if(angle>=180 && angle<=360)
+    if(angle>=90 && angle<=270)
     {
       //if(view_log) Serial.println(matrix_arr[8-1][8-1]);
-      if(matrix_arr[8-1][8-1]==0) matrix_arr[8-1][8-1]=2;
-    }
-    if(angle>=0 && angle<180)
-    {
+      
       if(matrix_arr[9-1][9-1]==0) matrix_arr[9-1][9-1]=2;
+    }
+    else
+    {
+      if(matrix_arr[8-1][8-1]==0) matrix_arr[8-1][8-1]=2;
     }
   }
 
@@ -147,7 +148,6 @@ void move_particles()
   
             if(angle>23)
             {
-              
               if(x<matrix_width && y<=matrix_height && y>1 && matrix_arr[x][y-2]==0 && matrix_arr[x-1][y-1]==1) // +x -y
               {
                 matrix_arr[x][y-2]=1;
@@ -211,51 +211,36 @@ void move_particles()
           }
 
           
-          int mid_angle=145;
+          int mid_angle=135;
           int max_angle=180;
           int min_angle=90; 
 
-          static uint8_t last_elements_id=0;
-          if(angle<=mid_angle)
+          if(angle<=mid_angle+22)
           {
             angle=angle-min_angle;
             if(angle>23)
             {
-              
-              if(x>1 && y>1 && matrix_arr[x-2][y-2]==0 && matrix_arr[x-1][y-1]==1) //right
+              bool moved=false;
+              if(x>1 && y>1 && matrix_arr[x-2][y-2]==0 && matrix_arr[x-1][y-1]==1 && (x-1!=8 && y-1!=8)) //right
               {
                 matrix_arr[x-2][y-2]=1;
                 matrix_arr[x-1][y-1]=0;
-
-                //last_positions_arr[last_elements_id][0]=x-1;
-                //last_positions_arr[last_elements_id][1]=y-1;
-                //if(last_elements_id<16) last_elements_id++;
-
-                //if(view_log) Serial.print(x);
-                //if(view_log) Serial.print(';');
-                //if(view_log) Serial.print(y);
-                //if(view_log) Serial.print(" -> ");
-                //if(view_log) Serial.print(x-1);
-                //if(view_log) Serial.print(';');
-                //if(view_log) Serial.print(y-1);
+                Serial.println("135right");
+                moved=true;
+                if(x<matrix_width && y<matrix_height && matrix_arr[x-1][y-1]==0 && matrix_arr[x-2][y-2]==1 && (x+1!=9 && y+1!=9)) //left
+                {
+                  matrix_arr[x-1][y-1]=1;
+                  matrix_arr[x-2][y-2]=0;
+                  //Serial.println("135left");
+                  if(moved) Serial.println("moved both");
+                }
               }
-              if(x<matrix_width && y<matrix_height && matrix_arr[x][y]==0 && matrix_arr[x-1][y-1]==1) //left
+              if(x<matrix_width && y<matrix_height && matrix_arr[x][y]==0 && matrix_arr[x-1][y-1]==1 && (x+1!=9 && y+1!=9)) //left
               {
                 matrix_arr[x][y]=1;
                 matrix_arr[x-1][y-1]=0;
-
-                //last_positions_arr[last_elements_id][0]=x-1;
-                //last_positions_arr[last_elements_id][1]=y-1;
-                //if(last_elements_id<16) last_elements_id++;
-
-                //if(view_log) Serial.print("   ");
-                //if(view_log) Serial.print(x);
-                //if(view_log) Serial.print(';');
-                //if(view_log) Serial.print(y);
-                //if(view_log) Serial.print(" -> ");
-                //if(view_log) Serial.print(x+1);
-                //if(view_log) Serial.print(';');
-                //if(view_log) Serial.print(y+1);
+                //Serial.println("135left");
+                if(moved) Serial.println("moved both");
               }
             }
             else if(angle<=23)
@@ -433,15 +418,17 @@ void move_particles()
             angle=angle-min_angle;
             if(angle>23)
             {
-              if(x<matrix_width && y<matrix_height && matrix_arr[x][y]==0 && matrix_arr[x-1][y-1]==1) //right
+              if(x<matrix_width && y<matrix_height && matrix_arr[x][y]==0 && matrix_arr[x-1][y-1]==1 && (x+1!=9 && y+1!=9)) //right
               {
                 matrix_arr[x][y]=1;
                 matrix_arr[x-1][y-1]=0;
+                //Serial.println("315right");
               }
-              if(x>1 && y>1 && matrix_arr[x-2][y-2]==0 && matrix_arr[x-1][y-1]==1) //left
+              if(x>1 && y>1 && matrix_arr[x-2][y-2]==0 && matrix_arr[x-1][y-1]==1 && (x-1!=8 && y-1!=8)) //left
               {
                 matrix_arr[x-2][y-2]=1;
                 matrix_arr[x-1][y-1]=0;
+                //Serial.println("315left");
               }
             }
             else if(angle<=23)
