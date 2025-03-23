@@ -80,7 +80,7 @@ void move_particles()
               matrix_arr[x][y]=1;
               matrix_arr[x-1][y-1]=0;
 
-              redraw(1);
+              redraw();
             }
             else if(y<matrix_height && matrix_arr[x-1][y]==0)
             {
@@ -123,12 +123,12 @@ void move_particles()
           {
             angle=90-angle;
   
-            if (x<matrix_width && y<matrix_height && matrix_arr[x][y]==0)
+            if(x<matrix_width && y<matrix_height && matrix_arr[x][y]==0)
             {
               matrix_arr[x][y]=1;
               matrix_arr[x-1][y-1]=0;
 
-              redraw(1);
+              redraw();
             }
             else if(x<matrix_width && matrix_arr[x][y-1]==0)
             {
@@ -146,7 +146,7 @@ void move_particles()
             }
             
   
-            if(angle>23)
+            if(angle>23 && 1==2)
             {
               if(x<matrix_width && y<=matrix_height && y>1 && matrix_arr[x][y-2]==0 && matrix_arr[x-1][y-1]==1) // +x -y
               {
@@ -159,7 +159,7 @@ void move_particles()
                 matrix_arr[x-1][y-1]=0;
               }
             }
-            else if(angle<=23)
+            else if(angle<=23 && 1==2)
             {
               if(y>1 && matrix_arr[x-1][y-2]==0 && matrix_arr[x-1][y-1]==1)
               {
