@@ -38,7 +38,7 @@ Beep (4): Beeping sound, when timer ends (On/Off). When enabled, hourglass will 
 <!--AP/STA mode (5): Work as an access point or connect to Wi-Fi network (On/Off). When enabled, sand clock will open an access point. Connect to it, go to 192.168.6.9 and have the same control panel, as when connecting directly to Wi-Fi.-->
 Mode (5): Select mode: 1 - sand timer; 2 - standby clock
   
-&nbsp; &nbsp; When in 5th setting press and hold any button to generate access point to enter your Wi-Fi credentials.
+<!--&nbsp; &nbsp; When in 5th setting press and hold any button to generate access point to enter your Wi-Fi credentials.-->
   
 <br> <br>
 ## Web
