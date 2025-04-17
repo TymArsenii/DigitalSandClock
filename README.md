@@ -11,7 +11,7 @@ else if(to_seconds>40) sand_type="normal";
 For best accuracy hardware timer is used.
 
 <br><br>
-The device itself is 2x 8x8 matrixes (MAX7219 modules) positioned diagonaly. Everything except electronics and screws is 3D printed. 
+The device itself is 2x 8x8 matrixes (MAX7219 modules) positioned diagonaly. Enclosure is 3D printed.
 <br><br>
 ## How to use 
 Slide the power switch to turn it on, you'll see the timer started with your last period (the default is 10sec). 
