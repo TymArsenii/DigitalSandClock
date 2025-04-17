@@ -50,7 +50,7 @@ Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_
 - Adaptive sand density
 - **Amazing look :-)**
 - Set timer
-- Change brightness brightness
+- Variable brightness
 - Angle auto mode
 - Beeping sound when timer ends (optional)
 - Saving all the settings to eeprom (power independent memory)
