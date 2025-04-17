@@ -519,7 +519,7 @@ void setup()
     }
   }
 
-
+  ee_data.ap_mode=false;
   if(ee_data.ap_mode)
   {
     //portal_start();
@@ -738,9 +738,10 @@ void loop()
     {
       ee_data.beep=!ee_data.beep;
     }
-    else if(curr_action==6) //ap_mode?
+    else if(curr_action==6) //clock_mode?
     {
-      ee_data.ap_mode=!ee_data.ap_mode;
+      if(ee_data.mode==1) ee_data.mode=2;
+      else if(ee_data.mode==2) ee_data.mode=1;
     }
     else if(curr_action==1) curr_action=0;
   }
@@ -773,9 +774,10 @@ void loop()
     {
       ee_data.beep=!ee_data.beep;
     }
-    else if(curr_action==6) //ap_mode?
+    else if(curr_action==6) //clock_mode?
     {
-      ee_data.ap_mode=!ee_data.ap_mode;
+      if(ee_data.mode==1) ee_data.mode=2;
+      else if(ee_data.mode==2) ee_data.mode=1;
     }
   }
   if(up.step(1))
@@ -819,9 +821,10 @@ void loop()
     {
       ee_data.beep=!ee_data.beep;
     }
-    else if(curr_action==6) //ap_mode?
+    else if(curr_action==6) //clock_mode?
     {
-      ee_data.ap_mode=!ee_data.ap_mode;
+      if(ee_data.mode==1) ee_data.mode=2;
+      else if(ee_data.mode==2) ee_data.mode=1;
     }
     else if(curr_action==1) curr_action=0;
   }
@@ -854,9 +857,10 @@ void loop()
     {
       ee_data.beep=!ee_data.beep;
     }
-    else if(curr_action==6) //ap_mode?
+    else if(curr_action==6) //clock_mode?
     {
-      ee_data.ap_mode=!ee_data.ap_mode;
+      if(ee_data.mode==1) ee_data.mode=2;
+      else if(ee_data.mode==2) ee_data.mode=1;
     }
   }
   if(down.step(1))
@@ -924,7 +928,7 @@ void loop()
       curr_action=1;
       mode_select_tmp=2;
     }
-    else if(curr_action==6)
+    else if(curr_action==7)
     {
       WiFiMode_t current_mode=WiFi.getMode();
 
@@ -1096,7 +1100,11 @@ void loop()
     {
       print_num(ee_data.beep ? 1 : 0, 1); //number, matrix id
     }
-    else if(curr_action==6) //ap_mode
+    else if(curr_action==6)
+    {
+      print_num(ee_data.mode, 1); //number, matrix id
+    }
+    else if(curr_action==7) //ap_mode
     {
       print_num(ee_data.ap_mode ? 1 : 0, 1); //number, matrix id
     }

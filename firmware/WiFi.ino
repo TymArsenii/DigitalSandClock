@@ -41,7 +41,7 @@ void wifi_stuff()
       {
         wifi_request_timer=millis();
         
-        char send_build[30]="device_id=1&status=online-ok";
+        char send_build[35]="device_id=1b1768&status=online-ok";
         mqtt.publish("digi_sand_local_Ars", send_build);
       }
 
@@ -71,7 +71,7 @@ void callback(char *topic, byte *message, unsigned int length)
     {
       if(mqtt.connected() && WiFi.status()==WL_CONNECTED && wifi_connected)
       {
-        char send_build[32]="device_id=1&status=reseaved";
+        char send_build[35]="device_id=1b1768&status=received";
         mqtt.publish("digi_sand_local_Ars", send_build);
       }
 
@@ -106,6 +106,9 @@ void callback(char *topic, byte *message, unsigned int length)
       ticker.detach();
       ticker.attach_ms(drop_timer_value, drop_timer_isr);
       // <- apply
+
+      EEPROM.put(2, ee_data);
+      EEPROM.commit();
     }
   }
 }

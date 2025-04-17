@@ -526,7 +526,10 @@ const char SP_login_page[] PROGMEM=R"rawliteral(
 
 <div id="main_div" style="width:50px;">
 
+  <label class="label_small">SSID:</label>
   <input type="text" class="text_inp" id="ssid_inp" placeholder="SSID">
+
+  <label class="label_small">Password:</label>
   <input type="text" class="text_inp" id="pass_inp" placeholder="Password">
 
   <button id="submit" class="main_button">Apply</button>
@@ -596,14 +599,16 @@ const char SP_login_page[] PROGMEM=R"rawliteral(
 <style>
   body 
   {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: linear-gradient(to bottom, #c7eaff, #ffd9a1);
-    color: #1c1c1e;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    color:#1a1a1a;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    background-color:#FFF;
     margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 0;
+    height: 100%;
+    overflow-y: auto;
   }
 
   .back 
@@ -714,54 +719,114 @@ const char SP_login_page[] PROGMEM=R"rawliteral(
     align-items: center;
   }
 
-  .main_button
+  button /*for every button*/
   {
-    background-color: #007aff;
-    color: #fff;
-    padding: 15px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    font-size: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    border: 2px solid #007aff; 
-    margin-bottom: 20px;
-    width: 100%;
+    transition: all 0.1s ease-in-out;
   }
-  .main_button:hover 
+  .main_button, .main_button_red, .main_button_green, .secondary_button, .secondary_button_red /*main buttons*/
   {
-    background-color: #0057b5;
+    padding:14px;
+    border:none;
+    border-radius:15px;
+    cursor:pointer;
+    font-size:1rem;
+    width:100%;
+    margin-bottom:10px;
   }
-  .main_button:active 
+
+  .main_button, .main_button_slim /*blue*/
   {
-    outline: none;
-    background-color: #3093ff;
+    background-color:#4c8bf5;
+    border:2px solid #4c8bf5;
+    box-shadow:0 2px 5px rgba(0, 0, 0, 0.10);
+    color:#fff;
+  } 
+  .main_button:hover, .main_button_slim:hover /*blue hover*/
+  {
+    background-color:#0057b5;
+    border-color:#0057b5;
   }
+  .main_button:active, .main_button_slim:active /*blue active*/
+  {
+    outline:none;
+    background-color:#3093ff;
+    border-color:#3093ff;
+  }
+  /*-------------*/
+  .main_button_red, .main_button_red_slim /*red*/
+  {
+    background-color:#ff0000;
+    border:2px solid #ff0000; 
+    box-shadow:0 2px 5px rgba(0, 0, 0, 0.10);
+    color:#fff;
+  }
+  .main_button_red:hover, .main_button_red_slim:hover /*red hover*/
+  {
+    background-color:#be0000;
+    border-color:#be0000;
+  }
+  .main_button_red:active, .main_button_red_slim:active /*red active*/
+  {
+    outline:none;
+    background-color:#ff4a4a;
+    border-color:#ff4a4a;
+  }
+  /*-------------*/
+  .main_button_green, .main_button_green_slim /*green*/
+  {
+    background-color:#a2deae;
+    border:2px solid #a2deae; 
+    box-shadow:0 2px 5px rgba(0, 0, 0, 0.10);
+    color:#000000;
+  }
+  .main_button_green:hover, .main_button_green_slim:hover /*green hover*/
+  {
+    background-color:#88b991;
+    border-color:#88b991;
+  }
+  .main_button_green:active, .main_button_green_slim:active /*green active*/
+  {
+    outline:none;
+    background-color:#badfc1;
+    border-color:#badfc1;
+  }
+  /*-------------*/
 
   .secondary_button
   {
-    background-color: #007aff;
-    color: #fff;
-    padding: 15px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    font-size: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px;
-    width:100%; 
-    border: 2px solid #007aff; 
-    color: black; 
+    color:#fff;
+    border:2px solid #4c8bf5; 
+    color:black; 
     background:rgb(255, 255, 255, 0);
+    box-shadow:0 2px 5px rgba(0, 0, 0, 0.10);
   }
   .secondary_button:hover 
   {
-    background:rgb(255, 255, 255, 0.3) !important;
+    background-color:#4c8bf5;
+    color:#fff;
   }
   .secondary_button:active 
   {
-    outline: none;
-    background:rgb(255, 255, 255, 0.8) !important;
+    background:rgb(255, 255, 255, 0);
+    color:#000;
+  }
+
+  .secondary_button_red
+  {
+    color:#fff;
+    border:2px solid #ff0000; 
+    color:black; 
+    background:rgb(255, 255, 255, 0);
+    box-shadow:0 2px 5px rgba(0, 0, 0, 0.10);
+  }
+  .secondary_button_red:hover 
+  {
+    background-color:#ff0000;
+    color:#fff;
+  }
+  .secondary_button_red:active 
+  {
+    background:rgb(255, 255, 255, 0);
   }
 
   .home-container
@@ -888,43 +953,84 @@ const char SP_login_page[] PROGMEM=R"rawliteral(
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
-  .dropdown-container
-  {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  .dropdown_container
+  { 
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:10px;
+    border-radius:15px;
+    background-color: rgba(0, 0, 0, 0.04);
 
-    margin-bottom: 20px;
+    margin-bottom:15px;
+
+    /*background: linear-gradient(45deg, rgba(245, 24, 189, 0.2), rgba(20, 222, 245, 0.2));*/
   }
 
-  .dropdown-container label
+  .dropdown_container label
   {
-    font-weight: 600;
-    color: #007aff;
-    margin-bottom: 10px;
+    font-weight:600;
+    color:#007aff;
+    margin-bottom:10px;
+    font-size:20px;
   }
 
-  .dropdown-container select
+  .dropdown_container .label_small
   {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    cursor: pointer;
-    margin-bottom: 15px;
-    color: #007aff;
-    font-size: larger;
+    font-weight:600;
+    color:#007aff;
+    margin-bottom:10px;
+    font-size:16px;
+    text-align:left;
+    align-self:flex-start;
+    margin-bottom:5px;
+    margin-left:5px;  
   }
 
-  .dropdown-container select:focus
+  .dropdown_container select
   {
-    border-color: #007aff;
-    outline: none;
+    width:100%;
+    padding:5px;
+    border:1px solid #e0e0e0;
+    border-radius:5px;
+    background-color:rgba(255,255,255,0.6);
+    cursor:pointer;
+    margin-bottom:5px;
+    color:#4c8bf5;
+    font-size:larger;
+  }
+
+  .dropdown_container select:focus
+  {
+    border-color:#4c8bf5;
+    outline:none;
+  }
+
+  .text_inp
+  {
+    font-size:1rem;
+    width:100%;
+    border-radius:15px;
+    padding:15px;
+    border-width:1px;
+    background:#FFF;
+    border:1px solid #e0e0e0;
+    box-sizing:border-box; /*to make real width*/
+    /*box-shadow:0 2px 5px rgba(0, 0, 0, 0.05);*/
+  }
+
+  .number_inp 
+  {
+    font-family:Arial, sans-serif;
+    font-size:1rem;
+    color:#000;
+    border:1px solid #ccc;
+    border-radius:5px;
+    padding:5px;
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
+    /*box-shadow:0 2px 5px rgba(0, 0, 0, 0.05);*/
   }
 
   .apply-button
