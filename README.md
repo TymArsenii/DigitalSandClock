@@ -63,6 +63,7 @@ Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_
 - v1.1 - Major improvements, fixes
 - v1.2 - Full Wi-Fi capability, fixes
 - v1.3 - New app expirience, standby clock, fixes
+- v1.4 - App redesign, login, device manager systems. Local mode was removed
 
 
 <br><br>
