@@ -64,7 +64,7 @@ Control pannel is accessible on <a href="https://exch.com.ua">exch.com.ua</a>.
 Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_clock.html">here</a> (doesn't have delays to control the density of sand. Operates with max speed. In some cases may blink. In final device all the problems were fixed)
 
 ## Possibilities
-- Angle reaction
+- Angle reaction (0°–360°)
 - Realistic sprinkling
 - Adaptive sand density
 - **Amazing look :-)**
@@ -83,7 +83,7 @@ Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_
 - v1.1 - Major improvements, fixes
 - v1.2 - Full Wi-Fi capability, fixes
 - v1.3 - New app expirience, standby clock, fixes
-- v1.4 - App redesign, login, device manager systems. Local mode was removed
+- v1.4 - App redesign, login, device manager systems. Local mode was removed. Better MQTT expirience
 
 
 <br><br>
