@@ -50,6 +50,8 @@ Mode (5): Select mode: 1 - sand timer; 2 - standby clock
 > If can't connect to MQTT server (whole matrix is filled for too long), possible to work in offline mode.  
 > To enter offline mode – press and hold one of buttons.  
 > To try reconnecting again – hold both buttons.
+>
+> To initially enter Wi-Fi credentials, hold any button at start (half of matrix will be filled), DigiSand control — Wi-Fi access point will apper. After connecting to AP, go to 192.168.6.9 and enter your Wi-Fi credentials.
   
 <br> <br>
 ## App
