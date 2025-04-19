@@ -154,6 +154,8 @@ bool beeping;
 uint8_t beep_reset;
 bool removed=false; //kostyl
 bool led_off=false;
+bool mqtt_connected=false;
+bool offline_mode=false;
 //int16_t active_corrector=0;
 
 struct 
@@ -161,7 +163,7 @@ struct
   int8_t minute=0;
   int8_t second=10;
 
-  int8_t brightness=5;
+  int8_t brightness=0;
 
   bool angle_auto=false;
 
@@ -398,6 +400,7 @@ void setup()
   mpu.setZ({0, 1});
 
   mtrx.begin();
+  if(ee_data.brightness==-1) ee_data.brightness=0;
   mtrx.setBright(ee_data.brightness);
   while(false) //debug-check print_num function; true to enable 
   {
@@ -526,6 +529,16 @@ void setup()
   }
   if(!ee_data.ap_mode)
   {
+    for (int8_t x = 0; x < 16; x++)
+    {
+      for (int8_t y = 0; y <= x; y++)
+      {
+        set_dot(x, y, 1);
+      }
+    }
+
+    mtrx.setBright(0);
+    mtrx.update();
     //portal_start();
     WiFi.softAPdisconnect();
     WiFi.disconnect();
@@ -544,6 +557,7 @@ void setup()
 
   mqtt.setServer(mqtt_server, 1883);
   mqtt.setCallback(callback);
+  mqtt.setSocketTimeout(5);
   reconnect();
 
   Serial.print("time_zone=");
@@ -562,10 +576,15 @@ void setup()
 
 void loop() 
 {
+  //Serial.println(offline_mode);
+  Serial.print("mqtt_connected");
+  Serial.print(mqtt_connected);
+  Serial.print("   offline_mode");
+  Serial.println(offline_mode);
   loop_timer=millis();
   //Serial.println(WiFi.localIP());
   //http.tick();
-  wifi_stuff();
+  if(!offline_mode) wifi_stuff();
   //yield();
 
   if(Serial.available())
@@ -709,6 +728,7 @@ void loop()
 
   if(up.click())
   {
+    if(!mqtt_connected) offline_mode=true;
     if(curr_action==0) //choose setting
     {
       mode_select_tmp++;
@@ -793,6 +813,7 @@ void loop()
 
   if(down.click())
   {
+    if(!mqtt_connected) offline_mode=true;
     if(curr_action==0) //choose setting
     {
       mode_select_tmp--;
@@ -874,6 +895,7 @@ void loop()
 
   if(both.click())
   {
+    if(!mqtt_connected) offline_mode=true;
     if(curr_action>=2)
     {
       /*
@@ -904,6 +926,7 @@ void loop()
     {
       curr_action=mode_select_tmp;
       mode_select_tmp=2;
+      ee_data.brightness=0;
     }
     else if(curr_action==2)
     {
@@ -966,13 +989,27 @@ void loop()
     }
     else
     {
-      if(curr_action==3) led_off=false;
+      if(curr_action==3) 
+      {
+        ee_data.brightness=0;
+        led_off=false;
+      }
       EEPROM.put(2, ee_data);
       EEPROM.commit();
       
       curr_action=1;
       mode_select_tmp=2;
     }
+  }
+
+  if(up.press() || down.press())
+  {
+    if(!mqtt_connected) offline_mode=true;
+    Serial.println("pressing");
+  }
+  if(both.hold())
+  {
+    offline_mode=false;
   }
   //<- buttons processing
 
@@ -1023,7 +1060,7 @@ void loop()
     }
     */
   }
-  if(millis()-refresh_frame_timer>=60/1000) //60Hz
+  if(millis()-refresh_frame_timer>=60/1000 && (mqtt_connected || offline_mode)) //60Hz
   {
     refresh_frame_timer=millis();
     mtrx.clear();
@@ -1110,7 +1147,7 @@ void loop()
     }
     //Serial.println(curr_action);
 
-    if(curr_action!=1 || ee_data.mode==2) mtrx.update();
+    if((curr_action!=1 || ee_data.mode==2) && (mqtt_connected || offline_mode)) mtrx.update();
     else 
     {
       if(led_off) 
