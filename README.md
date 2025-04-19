@@ -13,8 +13,10 @@ For best accuracy hardware timer is used.
 <br><br>
 The device itself is 2x 8x8 matrixes (MAX7219 modules) positioned diagonaly. Enclosure is 3D printed.
 <br><br>
-## How to use 
-Slide the power switch to turn it on, you'll see the timer started with your last period (the default is 10sec). 
+## How to navigate menus
+Slide the power switch to turn it on, you'll see the half of matrix filled, which means connecting to Wi-Fi.
+If connected to Wi-Fi successfully, whole matrix will fill, which means winnecting to MQTT.
+After all the success, you'll see last mode with all the settings working properly.
 
 Click on both buttons - reset sand position (it will appear on top)
 
@@ -39,7 +41,24 @@ Beep (4): Beeping sound, when timer ends (On/Off). When enabled, hourglass will 
 Mode (5): Select mode: 1 - sand timer; 2 - standby clock
   
 <!--&nbsp; &nbsp; When in 5th setting press and hold any button to generate access point to enter your Wi-Fi credentials.-->
+
+<br><br>
+🟡 **Connection Info**  
+> _While connecting to Wi-Fi at start half of matrix will be filled.  
+> While connecting to MQTT whole matrix will be filled._  
+>  
+> If can't connect to MQTT server (whole matrix is filled for too long), possible to work in offline mode.  
+> To enter offline mode – press and hold one of buttons.  
+> To try reconnecting again – hold both buttons.
   
+<br> <br>
+## App
+Control pannel is accessible on <a href="https://exch.com.ua">exch.com.ua</a>. 
+1. Register first.
+2. Go to DigiSand Clock Control.
+3. Add device. Press settings icon next to device container label.
+4. Save changes and go back to controls.
+5. When device status is online, you can control you device with full capabilities.
 <br> <br>
 ## Web
 Online simulation is available <a href="https://exch.com.ua/e-sand_clock/e-sand_clock.html">here</a> (doesn't have delays to control the density of sand. Operates with max speed. In some cases may blink. In final device all the problems were fixed)
