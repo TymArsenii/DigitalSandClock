@@ -25,7 +25,7 @@ Settings:
 - Brightness (2)
 - Angle auto (3)
 - Beep (4)
-- AP/STA mode (5)
+- Clock/Sand mode (5)
   
 To enter settings "choose settings" menu - press any button. You'll see letter 's' and a number 1 or 2. 1 - timer's time; 2 - brightness... To enter setting, you chose, press both buttons.
 
