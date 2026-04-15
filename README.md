@@ -13,7 +13,7 @@ For best accuracy hardware timer is used.
 <br><br>
 The device itself is 2x 8x8 matrixes (MAX7219 modules) positioned diagonaly. Enclosure is 3D printed.
 <br><br>
-## How to navigate menus
+## Navigating menus
 Slide the power switch to turn it on, you'll see the half of matrix filled, which means connecting to Wi-Fi.
 If connected to Wi-Fi successfully, whole matrix will fill, which means winnecting to MQTT.
 After all the success, you'll see last mode with all the settings working properly.
